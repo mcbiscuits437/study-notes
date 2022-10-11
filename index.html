@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Notes on HTML</title>
+    <link rel="stylesheet" href="style.css"> <!--Standard CSS external stylesheet link-->
+    <link rel="icon" href="icon.jpg" type="image/x-icon"> <!--Creates the icon in a browser tab-->
+    <script src="script.js" defer></script> <!--Standard external JS sheet link-->
+  </head>
+  <body>
+    <p>These notes come from the <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Advanced_text_formatting" title="MDN Web-Docs: HTML">MDN Web-docs HTML Module</a>.
+    <p>Getting Started with HTML<p>
+      <!--
+      What is HTML?
+      HTML is a markup language that tells web browsers how to structure the web pages you visit. 
+      
+      HTML consists of a series of <em>elements</em> that enclose/wrap/<em>mark up</em> content. 
+
+      Anatomy of an HTML Element
+
+      <p>My cat is very grumpy</p>
+      <opening tag> Content <closing tag>
+
+      All of this makes up an ELEMENT  
+
+      Nesting Elements
+
+      Elements can be placed within other elements, this is called <em>nesting</em>.
+
+      If we wanted to say our cat is VERY grumpy, we could use a <strong> element, which makes it bold.
+
+      <p>My cat is <strong>very</strong> grumpy.</p>
+      
+      Tags have to open and close in a way that they are inside or outside one another. 
+
+      Yes:
+      <p><strong></strong></p>
+      NO:
+      <p><strong></p></strong>
+
+      Block VS. Inline Elements
+
+      Block-level elements form a visible block on a page.
+      Block-level element appears on a new line following the content that precedes it. 
+      Ex:
+      <h1></h1>
+      <p></p>
+      <ol></ol>/<ul></ul>/<dl></dl>
+
+      Block elements can nest inside other block elements
+
+      Inline elements are contained WITHIN block-level elements, and surroung only small parts of the document's content (not entire paragraphs or groupings of content).
+      Inline elements will NOT cause a new line to appear in the document. 
+      Ex:
+      <a>-creates a hyperlink
+      <em></em>
+      <strong></strong>
+      
+      <strong>NOTE</strong> HTML5 redefined the element categories which are much more complicated to understand than <strong>block</em> and <em>inline</em>. So for this intro we'll stick with those terms.
+
+      <strong>NOTE</strong> BLOCK and INLINE should not be confused with the types of CSS boxes that have the same names. 
+
+      Empty Elements
+
+      Not all elements require a closing tag, some use a single tag like the <img> element (embeds an image file onto a page). 
+
+      <img src="https://raw.githubusercontent.com/mdn/beginner-html-site/gh-pages/images/firefox-icon.png">
+
+      See? No closing tag. 
+
+      <strong>NOTE</strong> Empty elements are sometimes called <em>void elements</em>
+
+      Attributes
+
+      Elements can also have attributes
+        the 'class="editor-note"' in the element below:
+      <p class="editor-note">My cat is very grumpy</p>
+
+      Attributes contain etra info about the element that won't appear in the content.
+
+      Attributes should have:
+        -A space between it and the element name. (For an element with more than one attribute, the attributes should be separated by spaces too).
+        -The attribute name, followed by an = sign.
+        -An attribute value, wrapped with opening and closing quote marks.
+      
+      Adding Attributes to an Element
+
+      Using <a> (stands for anchor)
+
+      <a href="https://www.mozilla.org" title="The Mozilla homepage" target="_blank">
+        
+      Boolean Attributes
+      
+      Attributes written without values. 
+      Boolean attributes can only have <em>one</em> value. 
+
+      <input type="text" disabled="disabled">
+      
+      in shorthand
+      <input type="text" disabled>
+      (using the disabled attribute prevents the end user from entering text into the input box)
+
+      Omitting quotes around attribute values
+
+      It is possible to write code w/out quotes in some scenarios.
+      ex:
+      a href=https://www.mozilla.org/>favorite website</a>
+
+      However, as soon as we add the <strong>title</strong> attribute, there are problems
+      ex:
+      a href=https://www.mozilla.org/ title=The Mozilla homepage>favorite website</a>
+
+      <strong>ALWAYS INCLUDE ATTRIBUTE QUOTES</strong>
+
+      Single or Double Quotes?
+
+      You may use whichever you prefer, but
+      BE CONSISTENT
+      No mixing and matching
+      However, when you're using one kind you may use the other kind <em>inside</em> the other kind
+      ex:
+      <a href="https://www.example.com" title="Isn't this fun?">A link to my example.</a>
+
+      Anatomy of an HTML Document
+
+      Whitespace in HTML
+
+
+      Entity References: Including Special Characters in HTML
+
+      In HTML, the characters < , >, ", ' and & are <strong>special characters</strong>. There are parts of HTML syntax itself. 
+
+      To include these characters we use a <em>character reference</em>. Special codes that represent characters. 
+
+      <   &lt;
+      >   &gt;
+      "   &quot;
+      '   &apos;
+      &   &amp;
+
+      HTML Comments
+
+      To write a comment, simply wrap the content in 
+      
+      <!--   -->
+
+
+
+      <p>What's in the Head? Metadata in HTML</p>
+
+      <!--
+        <head>
+
+          Character Sets
+
+          <meta charset="utf-8">
+          
+          Title
+
+          <title>Meta examples</title>
+
+          CSS
+
+          <link rel="stylesheet" href="style.css">
+
+          JavaScript
+
+          <script src="script.js" defer></script>
+    
+          Author and Description
+
+          <meta name="author" content="Chris Mills">
+          <meta name="description" content="This is an example page to demonstrate usage of metadata on web pages.">
+          
+          Other Types of Metadata
+
+          <meta property="og:image" content="https://developer.cdn.mozilla.net/static/img/opengraph-logo.dc4e08e2f6af.png">
+          <meta property="og:description" content="This is an example page to demonstrate usage of metadata on web pages.">
+          <meta property="og:title" content="Metadata; The HTML &lt;head&gt;, on MDN">
+          
+          Icons
+
+          <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon">
+        </head>
+      -->
+
+      <p>HTML Text Fundamentals</p>
+      <!--
+      The Basics: Headings and Paragraphs
+
+      Implementing Structural Hierarchy
+
+      Why Do We Need Structure?
+
+      Why Do We Need Semantics?
+      
+      Lists
+
+      Unordered:
+      <ul>
+        <li></li>
+        ...
+      </ul>
+
+      Ordered:
+      <ol>
+        <li></li>
+        ...
+      </ol>
+
+      Nesting Lists
+
+      Perfectly OK to nest on list inside another one
+
+      <ol>
+        <li></li>
+        ...
+        <ul>
+          <li></li>
+          ...
+        </ul>
+      </ol>
+
+      Emphasis and Importance
+      
+      Does much more than just styling the text. 
+      
+      Elements are an important part of Semantics
+
+      Helps trigger screen readers and is utilized by search engines
+
+      Emphasis:
+
+      <em></em> Puts text into italics
+
+      Could use a <span> element and CSS or the <i> element
+
+      Strong:
+
+      <strong></strong> Makes text bold
+
+      Could use a <span> element and CSS or <b> element
+      -->
+
+      <p>Creating Hyperlinks</p>
+
+      <!--
+
+      What is a Hyperlink?
+
+      Anatomy of a Link
+
+      A basic link is created by wrapping the text or other content inside an 
+
+      <a> element   and using the 
+
+      href attribute (Hypertext Reference) or <strong>target</strong>
+
+      <a href="https://www.mozilla.org/en-US/">the Mozilla homepage</a>
+      
+      Adding Support Information with the Title Attribute
+
+      <a href="https://www.mozilla.org/en-US/"
+         title="The best place to find more information about Mozilla's mission and how to contribute">the Mozilla homepage</a>
+
+      
+      Block Level Links
+
+      Even block level elements like <img> can be made into a link
+      
+      <a href="https://www.mozilla.org/en-US/">
+        <img src="mozilla-image.png" alt="mozilla logo that links to the Mozilla homepage">
+      </a>
+
+      URLs and Paths
+
+      URL=Uniform Resource Locator
+
+      URLs use paths to find files. <em>Paths</em> specify where the file you're interested in is located in the filesystem. 
+
+      To link something in the 
+
+      Same Directory:
+      <a href="contacts.html"></a>
+
+      Moving down into Subdirectories
+      <a href="projects/index.html"></a>
+
+      Moving back up into Parent Directories
+      <a href="../pdfs/project-brief.pdf"></a>
+
+      <em>NOTE</em>
+
+      You can combine multiple instances of these features into complex URLs if needed
+      ex:
+      ../../../complex/path/to/my/file.html
+
+      Document Fragments
+
+      It is possible to link to a specific part of an HTML document (document fragment).
+      To do so, you have to assign and id attribute to the element:
+      <h2 id="Mailing_address">Mailing address</h2>
+
+      then to link to that specific id, you'd include it at the end of the URL, preceded by the hash/pound # symbol:
+      <a href="contacts.html#Mailing_address"></a>
+
+      Can even use document fragment reference on it's own to link to <em>another part of the current document</em>
+
+      <a href="#Mailing_address">...</a>
+
+      Absolute VS. Relative URLs
+
+      absolute URL: points to a location defined by it's absolute location on the web, including protocol and domain name
+      ex:
+      https://www.example.com/projects/index.html
+
+      An absolute URL will <strong>always</strong> point to the same location, no matter where it's used.
+
+      relative URL: points to a locatino that is <em>relative</em> to the file you are linking from
+      ex:
+      like above
+      project-brief.pdf
+
+      A relative URL will point to different places depending on the actual location of the file you refer from. 
+
+      Link Best Practices
+
+      -->
+
+      <p>Advanced Text Formatting</p>
+      <!--
+      Description Lists
+
+      Third type of list is called a <strong>description lists</strong>.
+
+      <dl>         description list
+        <dt></dt>  description term
+        <dd></dd>  description definition
+        <dt></dt>
+        <dd></dd>
+      </dl>
+
+      Multiple Descriptions for One Term
+
+      Note that it is permitted to have more than one description for each item
+
+      <dl>
+        <dt></dt>
+        <dd></dd>
+        <dd></dd>
+      </dl>
+
+      Quotations
+
+      HTML has features for marking up quotations
+      which element depends on whether you are marking up a block or inline quotation
+
+      Blockquotes
+      
+      If a section of block level content(however little or much) is quoted from somewhere else, you should wrap it inside a 
+      <blockquote></blockquote>
+      element and include the URL pointing to the source of the quote inside a 
+      <cite>   attribute.
+
+      ex:
+      <p>Here beleow is a blockquote...</p>
+      <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote">
+        <p>The <strong>HTML <code>&lt;blockquote&gt;</code>Element</strong> (or <em>HTML Block Quotation Element</em>) indicates that the enclosed text is an an extended quotation.</p>
+      </blockquote>
+
+      Default styling will render this as an indented paragraph.
+
+      Inline Quotations
+
+      Inline quotations work exactly the same as block except they use the <q></q> element. 
+
+      <p>The quote element - <code>&lt;q&gt;</code> - is <q cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q">intended for short quotations that don't require paragraph breaks.</q></p>
+
+      Citations
+
+      The content of the <em>cite</em> sounds useful, but screenreaders/browsers don't do much with it. You could link the text inside <cite></cite> to the quote source in some way:
+
+      <p>According to the <a href="/en-US/docs/Web/HTML/Element/blockquote"><cite>MDN blockquote page</cite></a>:</p>
+
+      Abbreviations
+
+      <abbr></abbr>
+
+      Used to wrap around an abbreviation or acrynum and provide a full expansion of the term (included inside the <em>title</em> attribute).
+
+      <p>We use <abbr title="Hypertext Markup Language">HTML</abbr> to structure our web documents.</p>
+      <p>I think <abbr title="Reverend">Rev.</abbr> Green did it in the kitchen with the chainsaw.</p>
+
+      Expansion will appear as a tooltip when the term is hovered over. 
+
+      Marking up contact details
+
+      <address></address>
+        This wraps around your contact details:
+
+        <address>
+          Chris Mills, Manchester, The Grim North, UK
+        </address>
+      
+      Could include more complex markup:
+      
+      <address>
+        <p>
+          Chris Mills<br>
+          Manchester<br>
+          The Grim North<br>
+          UK
+        </p>
+
+        <ul>
+          <li>Tel: 01234 567 890</li>
+          <li>Email: me@grim-north.co.uk</li>
+        </ul>
+      </address>
+
+      Superscript and Subscript
+
+      <sup></sup> superscript
+      <sub></sub> subscript
+
+      Makes exponenets, chemical formulae, etc. 
+
+      Representing Computer Code
+
+      multiple elements for marking up comupter code using HTML:
+
+      <code>For marking u pgeneric pieces of computer code</code>
+      <pre>for retaining whitespace (generally code blocks)-if you use indentation or excess whitespace inside text, browsers will ignore it and it will not be rendered. 
+        wrapping white space in the <pre></pre>tags preserves it exactly as it is in your text editor.
+      </pre>
+      <var>For specifically marking up variable names</var>
+      <kbd>For marking up keyboard (and other types) input entered</kbd>
+      <samp>For marking up output of a computer program</samp>
+
+      Marking Up Times and Dates
+
+      <time>for marking up times and dates in a machine-readable format.</time>
+
+      <time datetime="2016-01-20">20 January 2016</time>
+
+      People write times and dates in varying ways, but writing this way standardizes for computers. 
+
+      Standard simple date
+      <time datetime="2016-01-20">20 January 2016</time>
+      Just year and month
+      <time datetime="2016-01">January 2016</time>
+      Just month and day
+      <time datetime="01-20">20 January</time>
+      Just time, hours and minutes
+      <time datetime="19:30">19:30</time>
+      Seconds and Milliseconds too
+      <time datetime="19:30:01.856">19:30:01.856</time>
+      Date and time
+      <time datetime="2016-01-20T19:30">7.30pm, 20 January 2016</time>
+      date and time with timezone offset
+      <time datetime="2016-01-20T19:30+01:00">7.30pm, 20 January 2016 is 8.30pm in France</time>
+      Calling out a specific week number
+      <time datetime="2016-W04">The fourth week of 2016</time> -->
+
+      <strong>
+      Document and Website Structure
+      </strong>
+      <!--
+      HTML boasts a number of block level elements used to define areas of your website:
+      <ul>
+        <li>"the header"</li>
+        <li>"the navigation menu"</li>
+        <li>"the main content column"</li>
+        <li>"etc"</li>
+      </ul>
+
+      How to plan a basic website structure, and write the HTML to represent this structure. 
+
+      Basic Sections of a Document
+
+      Even though they look different, pages all ten to share similar standard components. 
+
+      <dl>
+      <dt>header:</dt>
+      <dd>usually a big strip across the top w/heading, logo, tagline. Usually stays the same from one page to another.</dd>
+
+      <dt>navigation bar:</dt>
+      <dd>Links to the site's main sections; buttons, links, or tabs.</dd>
+      <dd>Like the header, usually remains consistent from one page to the next.</dd> 
+
+      <dt>main content:</dt>
+      <dd>big area in the center that contains most of the unique content:
+        <ul>
+          <li>the video you want to watch</li>
+          <li>the main story you're reading</li>
+          <li>the map you want to view</li>
+        </ul>
+      </dd>
+
+      <dt>sidebar:</dt>
+      <dd> Peripheral information, links, quotes, ads, etc.</dd>
+      <dd>Usually contextual to what is contained in the main content.</dd>
+
+      <dt>footer:</dt>
+      <dd>strip across the bottom of the page that generally contains fine print, copyright notices, or cnatct info.</dd>
+      <dd>Sometimes used for SEO purposes, by providing links for quick access to popular content.</dd>
+      </dl>
+
+      HTML for structuring content
+
+      With the right CSS you can use pretty much any elements to wrap around different sections and get a website looking how you want, but its important to
+      respect semantics
+      use the right element for the job
+
+      While font size and color may help sighted people to find content, it won't help people who don't use sight as a main sense
+
+      You can mark up sections of content based on their <em>functionality</em>-
+      use elements that represent sections of content. 
+
+      For this purpose, HTML provides dedicated tags:
+
+      header: <header></header>
+      navigation bar: <nav></nav>
+      main content: <main></main>, with various subsections represented by:
+        <article></article>
+        <section></section>
+        <div></div> elements
+      sidebar: <aside></aside>; often placed inside <main>
+      footer: <footer></footer>
+      
+      <main>Is for content <em>unique to this page</em></main>
+      -Use ONLY ONCE per page
+      -Put it directly inside <body></body>
+
+      <article> encloses a block of related content that makes sense on it's own w/out the rest of the page(e.g. a single blog post).</article>
+
+      <section>Similar to article but
+        -more for grouping together a single part of the page that constitutes one single piece of functionality
+        -a mini map
+        -a set of article headlines and summaries
+        -a theme
+        Considered best practice to begin each section with a <em>heading</em>. </section>
+      
+      <aside>contains content not directly related to main content but can provide addtion info indirectly related
+        -glossary entries
+        -author biography
+        -related links
+        -etc
+      </aside>
+
+      <header>Represents a group of introductory content. 
+        If it is a child of <body></body> it defines the global header of the webpage,
+        but if child of <article></article> or <section></section> it defines a specific header for that section (don't confuse with titles and headings).
+      </header>
+
+      <nav>contains main navigation functionality for the page</nav>
+
+      <footer>represent a group of end content for a page</footer>
+
+      Non-Semantic Wrappers
+      There are situations where there isn't an ideal semantic element to group some items together or wrap some content. You might want to group a set of elements together to affect them all as a single entity with CSS or JS. In these instances, HTML uses:
+      <div></div>
+      and
+      <span></span>
+
+      These should preferably be used with a suitable CLASS attribute, to provide a label so they can be easily targeted. 
+
+      <span> is an inline non-semantic element
+        only use if you can't think of a better semantic text element.</span>
+      
+      <div> is a block level non-semantic element
+        only use if you can't think of a better semantic block element.</div>
+      
+      WARNING: Divs are so convenient that it's easy to use them too much. 
+      ONLY USE THEM WHEN THERE IS NO BETTER SEMANTIC SOLUTION
+      and
+      REDUCE THEIR USAGE TO THE MINIMUM otherwise you'll have a hard time updating and maintainging your documents. 
+
+      Line Breaks and Horizontal Rules
+
+      <br></br>
+      <hr></hr>
+
+      <br>:the line break element.
+
+      creates a line break in a paragraph; the only way to force a rigid structure in a situation where you want a series of fixed short lines: think postal address or poem. 
+
+      <p>There once was a man named O'Dell<br>
+        Who loved to write HRML<br>
+        But his structure was bad, his semantics were sad<br>
+        and his markup didn't read very well.</p>
+      
+      <hr>: the thematic break element
+      
+      create a horizontal rule in the document that denotes a thematic change in text (e.g. a change in topic or scene.) 
+      Visually it looks like a horizontal line
+
+      Planning a Simple Website
+
+      Once you've planned out structure of a simple page, next logical step is to try and work out:
+      -What content you want to put on a whole website
+      -what pages you need
+      -how they should be arranged
+      -how they should link to one another for the best user experience.
+      
+      -This is called
+      INFORMATION ARCHITECTURE.
+
+      In a large, complex website, A LOT of planningn can go into this process, but for a simple site this can be simple and fun
+
+      1. You'll have a few elements common to most (if not all) pages:
+      -nav menu
+      -footer content
+
+      Write down what you want to have common to every page
+
+      2. Draw a rough sketch of what you want the website to look like
+
+      3. Brainstorm all unique content you want to have. This might be a big list
+
+      4. Sort content items into groups to give an idea of what might live together on different pages. Very similar to <em>Card Sorting</em>
+
+      5. Sketch a rough sitemap
+      
+      -->
+
+      Debugging <HTML></HTML>
+
+      Debugging doesn't have to scary-the key to being comfortable with writing and debuggin any programming language or code is familiarity with both the language and the tools
+
+      HTML and Debugging
+
+      Permissive Code
+      
+      What does permissive mean? Generally two kinds of errors
+      
+      -Syntax errors:
+        Spelling or punctuation errors that cause the code to not run. 
+
+      -Logic errors:
+        syntax is correct, but the code is not what was intended i.e. program runs incorrectly. 
+
+      Browsers parse HTML permissively, meaning the page still displays even if there are syntax errors. 
+
+      
+  
+      
+
+
+
+
+    
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -->

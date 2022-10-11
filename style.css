@@ -1,0 +1,2335 @@
+MDN CSS Module   
+
+CSS First Steps
+
+What is CSS?
+/*
+CSS is a rule-based language--you definte the rules by specifying groups of styles that should be applied to particular elements or groups of elements on your web page. 
+
+CSS Modules
+
+there are so many things that can be styled using CSS, the languge is broken down into <i>modules</i>.
+
+module-a CSS file that defines class and animation that are scoped locally by default. (e.g. backgrounds and borders, flexbox, grid, etc.)
+*/
+
+Getting Started with CSS
+/*
+
+Adding CSS to document
+
+3 ways to apply CSS to an HTML document:
+inline
+<p style="_:_;"></p>
+
+internal
+<head>
+  <style>
+    body {_:_;}
+    h1   {_:_;}
+  </style>
+</head>
+
+External *most common* puts a link in the <head> element
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+Styling HTML Elements
+
+style elements by using a <i>selector</i>
+
+p {
+}
+
+target multiple selectors at the same time by separating selectors with a comma. 
+
+p,
+li {
+}
+
+Changing the Default Behavior of Elements
+
+Browsers apply default styling for basic structure.
+
+Adding a Class
+
+add a class to any HTML elements to target that class. Will target any element with that class applied to it. 
+
+<p class="example">
+
+.example {
+}
+
+Styling Things Based On their Location in a Document
+
+Can target elements based on specific locations
+
+use the Descendant Combinator to target a child of a specific parent element.
+
+put a space in between the parent and child element
+
+<p>
+  <ol>
+  </ol>
+</p>
+
+p ol {
+}
+
+use the Adjacent Sibling Combinator to target targets an element directly after a heading at the same hierarchy level in the HTML. 
+
+*will target a <p> when it comes directly after an <h1>*
+
+h1 + p {
+}
+
+Styling Things Based on State
+
+ex: styling links. 
+
+when we style a link, we need to target the <a> element
+  this has differents tates depending on whether is is unvisited, visited, being hovered over, focused via the keyboard, or in the process of being clicked (activated). 
+
+a:link {
+}
+
+a:visited {
+}
+
+a:hover {
+}
+
+Combining Selectors and Combinators
+
+possible to combine multiple selectors and combinators together
+
+*selects any <span> that is inside a <p>, which is inside an <article>*
+
+article p span {
+}
+
+*selects any <p> that comes directly after a <ul>, which comes directly after an <h1> *
+
+h1 + ul + p {
+}
+*/
+
+How CSS is Structured 
+/*
+
+Applying CSS to HTML
+
+External Stylesheet
+-most common and useful. Can be applied to multiple HTML pages.
+
+<link rel="stylesheet" href="styles.css">
+
+Internal Stylesheet
+-resides within an HTML document. Place CSS inside a <style> element contained inside the HTMl <head>
+
+<head>
+  <style>
+    selector {
+    }
+    selector {
+    }
+  </style>
+ </head>
+ 
+ Inline Styles
+ -CSS declarations that affect a single HTML element, contained within a style attribute. 
+
+ <h1 style="...:...;"></h1>
+
+ AVOID USING CSS IN THIS WAY, WHEN POSSIBLE. Inline is the opposite of best practice. Useful in very specific cases-working in a very restrictive environment where you only have access to the HTMl, etc. 
+
+ Selectors
+
+ A selector targets HTML to apply styles to content. 
+
+ multiple kinds of selectors
+
+ h1           element selector
+ a:link       pseudo selector
+ .manythings  class selector
+ #onething    id selector
+ *            everything selector
+
+ multiple combinations of the above if using COMBINATORS
+
+ Specificity
+
+ if two selectors are targeting the same element which one applies style?
+
+ decided using
+
+ the CASCADE (also known as specificity)
+
+ sometimes CSS might not apply as expected b/c something else in the stylesheet has more specificty. 
+
+ Cascade and Specificity will be covered in further depth below
+
+ Properties and Values
+
+ at its most basic level, CSS consists of two components:
+ 
+ Properties: human-readable identifiers that indicate which stylistic features you want to modify. 
+ ex: 
+ font-size
+ width
+ background-color
+
+ Values: each property is assigned a value. Value indicates how to style the property. 
+
+ h1 {
+  color: blue;
+  background-color: yellow;
+ }
+
+ when a property is paired with a value, this pairing is called a 
+ CSS DECLARATION
+
+ these are found within CSS DECLARATION BLOCKS
+ -everything inside the curly braces {}
+
+ CSS declaration blocks are paired with selectors to produce CSS RULESETS (or CSS RULES)
+
+ Functions
+
+ While most values are relatively simple keywords or numeric values, there are some values that take the form of a function. 
+
+ function consists of the function name, and parentheses to enclose the values for the function. 
+
+ {
+  width: calc(90%-30px);
+ }
+
+ @rules
+
+ (pronounced "at-rules") provide instruction for what CSS should perform or how it should behave. Some @rules are simple with just a keyword and a value. 
+
+ @import "styles2.css";
+
+ a common @rule is @media, which is used to create
+ *media queries*
+ -use conditional logic for applying CSS styling. 
+
+ Shorthands
+
+ some properties like font, background, padding, border, and margin are called shorthand properties. 
+ -sets several values in a single line
+
+ padding: 10px 15px 20px 5px;
+
+ equivalent to
+
+ padding-top: 10px;
+ padding-right: 15px;
+ padding-bottom: 20px;
+ padding-left: 5px;
+
+ WARNING: one less obvious aspect of CSS shorthand is how omitted values reset. A value not specific in CSS shorthand revers to its initial value. 
+
+ Comments
+
+ comments are done with 
+
+ /* and end with the same characters */
+
+ /*
+
+ White Space
+
+ browsers ignore white space inside CSS.
+
+ value of white space is how it can improve readibility-same as HTML
+
+ */
+
+ How CSS Works
+ /*
+
+ How Does CSS Actually Work?
+
+ 1. browser loads the HTML (e.g. receives it from the network).
+ 2. Converts HTML into a DOM (Document Object Model). DOM represent document in computer's memory. 
+ 3. browser fetches most of resources linked to by HTML document: embedded images, videos, linked CSS.
+ 4. browser parses the fetched CSS and sorts different rules by selector types into different "buckets" e.g. element, class, ID, etc. 
+   based on what selectors are found, works out which rules be applied to which nodes in the DOM, and attaches style to thme as required (this intermediate step is called a <italic>render tree</italic>.
+ 5. render tree is laid out in the structure it should appear in after rules have been applied to it. 
+ 6. visual display of the page is shown on the screen (this stage is called <italic>painting</italic>).
+
+ About the DOM
+
+ a DOM has a tree-like structure. Each element, attribute, and pipece of text becomes a DOM node. Nodes are defined by their relationship to other DOM nodes. some elements are parents of child nodes, and some child nodes have siblings. 
+
+ */
+
+CSS BUILDING BLOCKS
+
+Cascade and Inheritance
+/*
+
+Cascade, specificity, and inheritance
+
+Conflicting Rules
+
+CSS stands for Cascading Style Sheets-the way the cascade behaves is key to understanding CSS
+
+Cascade (and specificity!) are mechanisms that control which rule applies when there is a conflict. 
+
+inheritance-some css properties by default inherit values set on the current element's parent element and some don't. 
+
+Cascade
+
+cascade layer, and the order of CSS rules matter. 
+
+when two rules from the same layer apply and have equal specificity, the one that is defined last in the stylesheet will be used. 
+
+Specificity
+
+-the algorithm that the browser uses to decide which property value is applied to an element. 
+
+ -element selector is less specific. 
+ -class selector is more specific
+
+Inheritance
+
+Some CSS property values set on parent elements are inherited by their child elements, and some aren't. 
+
+Understanding Inheritance
+
+properties like color are inherited-children will have the same value
+properties like width, margin, padding, and border are not inherited properties. ex: if a border were to be inherited by the children in a <ul>, every <li> would gain a border, probably not an effect we want. 
+
+while every CSS property page lists whether or not the property is inherited, eventually you can intuit based on what aspect the property value will style. 
+
+Controlling Inheritance
+
+CSS provides five special universal property values for controlling inheritance. 
+
+inherit
+  -sets the property value applied to a selected element to be the same as that of it's parent element. effectively, this "turns on inheritance". 
+
+initial
+  -sets the property value applied to a selected element to the initial value of that property
+
+revert
+  -resets the property value applied to a selected element to the browser's default styling rather than the defaults applied to that property. This value acts like unset in many cases
+
+revert-layer
+  -resets the property value applied to a selected element to the valupe established in a previous cascade layer
+
+unset
+  -resets property to its natural value, means that if the property is naturally inherited it acts like inherit, otherwise acts like initial
+
+Resetting All Property Values
+
+the CSS shorthand property all: can be used to apply one of the inheritance values to (almost) all properties at once. value can be any one of the inheritance values:
+-inherit
+-initial
+-revert
+-revert-layer
+-unset
+
+Understanding the Cascade
+
+defines which CSS rules apply when more than one style block apply the same property, but with different values, to the same element. 
+
+Three factors to cnosider, listed in increasing order of importance. Later ones overrule earlier ones:
+
+1. Source order
+2. Specificity
+3. Importance
+
+Source Order:
+if all rules have the same weight, the one that comes last in the CSS will win. can think like this: whichever is the closest to the element itself overwrites the earlier ones. 
+
+Specificity: 
+more specific gets applied i.e.
+class beats element
+.my-class > p
+
+how does the browser calculate specificity? 
+essentially, a value in points is awarded to different types of selectors, and adding these up gives you the weight of that particular selector. 
+
+amount of specificity a selector has is measured using three different values (or componenets) which can be thought of as 
+ID       hundreds place
+CLASS    tens place
+ELEMENT  ones place
+
+identifiers: score one in the hundreds for each ID selector
+classes: score one in the tens for each class selector, attribute selector, or pseudo-class
+elements: score one in the ones for each element selector or pseudo-element 
+
+the negation :not(.) and the matches-any :is(.) pseudo-classes themselves dont have effect on specificity, but their parameters do.  
+
+Inline Styles
+
+inline styles take precedence over all normal styles, no matter the specificity. specificity can be construed as 1-0-0-0; always more than any other specificy weight
+
+!important
+
+special piece of CSS that can overrule all of the above calculations, even inline styles-the !important flag. 
+this flag is used to make an individual property and value pair the most specific rule, thereby overriding the normal rules of the cascade, including normal inline styles
+
+*NOTE
+   it is useful to know that !important flag exists so that you know what it is when you come across it in other people's code. 
+   HOWEVER, WE STRONGLY RECOMMEND THAT YOU NEVER USE IT unless you ABSOLUTELY HAVE TO. b/c it changes the way the cascade normally works, it can make debugging CSS problems really hard to work out, especially in a large style sheet. 
+
+Effect of CSS Location
+
+important to note that the precedence of a CSS declaration depends on what stylesheet and cascade layer it is specified in. 
+
+a user might set custom stylesheets to override developers styles
+ex: 
+a visually impaired used might want to set the font size on all web pages they visit to be double the normal size
+
+also possible to declare developer styles in cascade layers: 
+=make non-layered styles override styles declared in layers or
+-make styles declared in later layers override styles from earlier declared layers. 
+ex: 
+as a dev you may not be able to edit a third-party stylesheet, but you can import the external stylesheet into a cascade layer so that all your styles override the imported styles w/out worrying about a third-party selector specificity.
+
+Order of Overriding Declarations
+
+conflicting declarations will be applied in the following order, with later ones overriding earlier ones: 
+
+1. declarations in user agent style sheets (e.g. the browser's default styles, used when no other styling is set)
+2. Normal declarations in user style sheets (custom styles set by a user).
+3. Normal declarations in author style sheets (styles by us, the web devs)
+4. Important declarations in author style sheets. 
+5. Important declarations in user style sheets. 
+6. Important declarations in user agent style sheets. 
+
+Order of Cascade Layers
+
+when you declare CSS in cascade layers, the order of precedence is determined by the order in which the layers are declared. 
+
+with competing normal (not !important) styles, later layers take precedence over earlier defined layers.
+
+with styles flagged !important, however, the order is reversed, with important styles in earlier layers taking precedence over important styles declared in subsequent layers or outside of any layer. 
+
+inline styles take precedence over all author styles, no matter the layer. 
+*/
+
+CSS Selectors
+/*
+
+a CSS selector is the first part of a CSS Rule. 
+it is a pattern of elements and other terms that tell the browser which HTML elements should be selected to have the CSS property values inside the rule aplied to them. 
+  the element or elements which are selected by the selector are referred to as the "subject of the selector"
+
+Selector Lists
+
+individual selectors can be combined into a selector list so that the rule is appled to all of the individual selectors. 
+
+add a comma between selectors
+
+h1,
+.special {
+  : ;
+}
+
+*NOTE: if any selector is syntactically invalid, the whole rule will be ignored. 
+
+h1,
+..special {    the syntax of the class identifier is incorrect
+  : ;
+}
+
+Types of Selectors
+
+Type, class, and ID selectors
+
+elements
+h1
+p
+classes
+.class
+.special
+id's
+#unique
+
+Attribute selectors
+
+select elements based on the presence of a certain attribute on an element: 
+
+a[title] {
+  : ;
+}
+
+or even based on the presence of an attribute with a particular value: 
+
+a[href="https://example.com"] {
+  : ;
+}
+
+Pseduo-classes and pseudo-elements
+
+pseudo-classes style certain states of an element.
+
+a:hover {
+  : ;
+}
+
+pseudo-elements style a certain part of an element rather than the element itself. 
+ex: 
+  ::first-line always selects the first line of text inside an element (a <p> in the below example), acting as if a <span> was wrapped around the first formatted line and then selected
+
+p::first-line {
+  : ;
+}
+
+Combinators
+
+combine different selectors in order to target elements
+
+*/
+
+Type, Class, and ID selectors
+/*
+
+Type Selectors
+
+aka tag name selector or element selector
+
+The Universal Selector 
+
+indicated by an asterisk (*). 
+selects everything in the document (or inside the parent element if it is being chained together with another element and a descendant combinator). 
+
+  Using the universal selector to make your selectors easier to read
+  sometimes can be used to increase the readability of our code
+  article :first-child {}
+
+  can easily be confused with
+  article:first-child {}
+
+  instead use universal selector
+
+  article *:first-child{}
+
+Class Selectors
+
+starts with a dot (.) character
+selects everything in the doc with that class applied to it. 
+
+Targeting classes on particular elements
+
+create a selector that will target specific elements with the class applied. 
+
+use typeselector for the element you want to target with the class appended using a dot, with no white space in between. 
+
+span.highlight {}
+
+h1.highlight {}
+
+approach reduces the scope of a rule
+the rule will only apply to that particular element and class combo
+
+Target an element if it has more than one class applied
+
+apply multiple classes to an element and target them individually, or 
+only select the element when all of the classes in the selector are present. 
+can be helpful when building up components that can be combined in different ways on your site. 
+
+.notebox {}
+
+.notebox.warning {}
+
+.notebox.danger {}
+
+<div class="notebox"></div>
+
+<div class="notebox warning"></div>
+
+<div class="notebox danger"></div>
+
+<div class="danger"></div> this will not get styled, would need to have .notebox applied as well. 
+
+ID Selectors
+
+begins with a # but used in the same way as a class selector. 
+
+However, and ID can be used only once per page, and elements can only have a single id value applied to them. 
+
+#one {}
+
+h1#heading {}
+
+<h1 id="heading"></h1>
+
+<p id="one"></p>
+
+WARNING: using the same ID multiple times in a document may appear to work for styling purposes, but DON'T DO THIS. It results in invalid code and will cause strange behavior in many places
+*/
+
+Attribute Selectors
+/*
+
+In CSS you can use attribute selectors to target elements with certain attributes. 
+
+Presence and Value Selectors
+
+enable the selection of an element based on the presence of an attribute alone (ex: href), or on various different matches against the value of the attribute. 
+
+[attr]           a[title]
+matches elements with an attr attribute (whose name is the value in square brackets)
+
+[attr=value]     a[href="https://example.com"]
+matches elements with an attr attribute whose value is exactly value-the string inside the quotes.
+
+[attr~=value]    p[class~="special"]
+Matches elements with an attr attribute whose value is exactly value or contains value in its (space separated) list of values
+
+[attr|=value]    div[lang]="zh"]
+matches elements with an attr attribute whose value is exactly value or begins with value immediately followed by a hyphen. 
+
+ex:
+
+li[class]      match any list item with a class attribute
+matches all list items except the first one
+
+li[class="a"]  matches a selector with a class of a, but not a selector with a class of a with another space-separated class as part of the value. 
+selects the second list item
+
+li[class~="a"] matches a class of a but also a value that contains the class of a as part of a whitespace-separated list. 
+selects second and third list items
+
+li[class] {
+  font-size: 200%;
+}
+
+li[class="a"] {
+  background-color: yellow;
+}
+
+li[class~="a"] {
+  color: red;
+}
+
+<h1>Attribute presence and value selectors</h1>
+<ul>
+  <li>Item 1</li>
+  <li class="a">Item 2</li>
+  <li class="a b">Item 3</li>
+  <li class="ab">Item 4</li>
+</ul>
+
+Substring Matching Selectors
+
+allow for more advanced matching of substrings inside the value of attribute. for example, if you had classes of box-warning and box-error and wanted to match everything that started with the string "box-" you could use [class^="box-"] (or [class|="box"])
+
+[attr^=value]  li[class^="box-"]
+matches elements with an attr attribute, whose value begins with value.
+
+[attr$=value]  li[class$="-box"]
+matches elements with an attr attribute whose value ends with value.
+
+[attr*=value]  li[class*="box"]
+matches elements with an attr attribute whose value contains value anywhere within the string
+
+  (aside: may help to note that ^ and $ have long been used as <em>anchors</em> in so-called regular expressions to mean "begins with" and "ends with" respectively.)
+
+ex:
+
+li[class^="a"]
+matches any attribute value with starts with a, so matches the first two list items.
+
+li[class$="a"]
+matches any attribute value that ends with a, so matches first and third list item.
+
+li[class*="a"]
+matches any attribute value where a appears anywhere in the string, so matches all of our list items
+
+li[class^="a"] {
+  font-size: 200%;
+}
+
+li[class$="a"] {
+  background-color: yellow;
+}
+
+li[class*="a"] {
+  color: red;
+}
+
+<h1>Attribute substring matching selectors</h1>
+<ul>
+  <li class="a">Item 1</li>
+  <li class="ab">Item 2</li>
+  <li class="bca">Item 3</li>
+  <li class="bcabc">Item 4</li>
+</ul>
+
+Case-Sensitivity
+
+if you want to match attribute values case-insensitively you can use the value i before the closing bracket. 
+flag tells the browser to match ASCII characters case-insensitively. 
+
+li[class^="a"] {
+  background-color: yellow;
+}
+
+li[class^="a" i] {
+  color: red;
+}
+
+<h1>Case-insensitivity</h1>
+<ul>
+  <li class="a">Item 1</li>
+  <li class="A">Item 2</li>
+  <li class="Ab">Item 3</li>
+</ul>
+*/
+
+Pseudo-class and Pseudo-elements
+/*
+
+a selector that selects elements that are in a specific state, e.g. 
+they are the first element of their type
+they are being hovered over by the mouse pointer. 
+
+tend to act as if you had applied a class to some part of your doc, often helping cut down on excess classes in markup, giving more flexible, maintable code. 
+
+pseudo-classes are keywords that start with a colon:
+
+:pseudo-class-name
+
+other examples
+
+:last-child
+:only-child
+:invalid
+
+often useful to add an element
+ex: 
+
+p:first-child
+
+will only select the first <p> child of an element
+
+<article>
+  <h1>This is not selected even though it is the first child</h1>
+
+  <p>This is selected because it is the first p child</p>
+
+  <p>This is not selected because it is the second p child</p>
+</article>
+
+User-action Pseudo Classes
+
+some pseudo-classes only apply when the user interacts with the doc in some way. 
+
+sometimes referred to as dynamic pseudo-classes
+
+act as if a class had been added to the element when the user interacts with it. 
+
+ex: 
+
+:hover
+only applies if the user moves their pointer over an element, typically a link
+
+:focus
+only applies if the user focuses the element by clicking or using keyboard controls
+
+What is a Pseudo-element?
+
+act as if a whole new HTML element introduced to markup, rather than applying a class to existing elements.
+
+pseudo-elements starts with a double colon ::
+
+::pseudo-element-name
+
+article p::first-line {
+  font-size: 120%;
+}
+
+<article>
+  <p>veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo</p>
+</article>
+
+no matter how many words are in the first line (if sentence is changed
+or 
+screen size is changed)
+the first line will always be effected. 
+
+Combining pseduo-classes and pseudo-elements
+
+if you wanted to make the first line of the first paragraph bold you could chain 
+:first-child 
+and
+::first-line
+selectors together. 
+
+article p:first-child::first-line {
+}
+
+Generating Content with ::before and ::after
+
+a couple of special pseudo-elements, which are used along with the content property to insert content into your document using CSS.
+
+could use to insert a string of text for example
+
+.box::before {
+  content: "This should show before the other content."
+}
+
+<p class="box">Content in the box in my HTML page.</p>
+
+inserting strings of text is really something we do very often on the web, text is inaccessible to some screen readers and might be hard to find and edit in the future
+
+more valid use of these pseudo-elements
+insert an icon
+
+.box::after {
+  content: "➥"
+}
+
+<p class="box">Content in the box in my HTML page.</p>
+
+these pseudo-elements are frequently used to insert an empty string, which could then be styled like any element on the page. 
+
+.box::before {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-color: rebeccapurple;
+  border: 1px solid black;
+}
+
+<p class="box">Content in the box in my HTML page.</p>
+
+The use of ::before and ::after pseudo-elements along with the content property is referred to as "Generated Content" in CSS. will often see this technique being used for various tasks. 
+*/
+
+Combinators
+/*
+
+combine other selectors in a way that gives them a useful relationship to each other and the location of content in the document
+
+Descendant Combinator
+
+typically represented by a single space (" ")
+
+combines two selectors such that elements matched by the second selector are selected IF they have an ancestor (parent, parent's parent, parent's parent's parent, etc) element matching the first selector. 
+
+ex:
+
+.box p {
+  color: red;
+}
+
+<div class="box">
+  <p>Text in .box</p>
+</div>
+<p>Text not in .box</p>
+
+will only select the content in the div b/c it is a child of the .box class
+
+Child Combinator
+
+represented with a greater than symbol (>) placed between two CSS selectors. 
+
+Matches only those elements matched by the second selector that are the DIRECT children of elements matched by the first. 
+
+ul > li {
+  border-top: 5px solid red;
+}
+
+<ul>
+  <li>Unordered item</li>
+  <li>Unordered item
+    <ol>
+      <li>Item 1</li>
+      <li>Item 2</li>
+    </ol>
+  </li>
+</ul>
+
+Adjacent Sibling Combinator
+
+represented by plus sign (+) placed between two CSS selectors. 
+
+Matches only those elements matched by the second selector that are the next sibling element of the first selector. 
+
+common use case is to do something with a paragraph that follows a heading
+
+h1 + p {
+  font-weight: bold;
+  background-color: #333;
+  color: #fff;
+  padding: .5em;
+}
+
+<article>
+  <h1>A heading</h1>
+  <p>A paragraph full of words that will get styled b/c it is directly adjacent to the h1</p>
+  
+  <p>A paragraph that will not get styled b/c it is not directly adjacent to the h1 element</p>
+</article>
+
+General Sibling Combinator
+
+represented by tilde (~)
+
+selects siblings of an element even if they are not directly adjacent. 
+
+h1 ~ p {
+  font-weight: bold;
+  background-color: #333;
+  color: #fff;
+  padding: .5em;
+}
+
+<article>
+  <h1>A heading</h1>
+  <p>A paragraph that will get styled</p>
+  <div>A div that will not get styled</div>
+  <p>Another paragraph that will also get styled</p>
+</article>
+
+Using Combinators
+
+can combine any of the previously discussed selectors in order to pick out a specific part of a document. 
+
+NOTE: take care, however, when creating big lists of selectors that are very specific. It will be hard to reuse the CSS rules since you made the selector very specific to the location of that element
+
+often it is better to create a simple class and apply that to the element in question. 
+*/
+
+The Box Model 
+ /*
+
+ Block and Inline Boxes
+
+ In CSS broadly have two types of boxes-
+
+ Block Boxes
+ Inline Boxes
+
+ type refers to how the box behaves in terms of page flow and in relation to the other boxes on the page. 
+
+ Boxes have an 
+ 
+ inner display type
+ outer display type
+
+ Outer Display Type
+
+ if box has an outer display type of BLOCK
+ 
+ -the box will break onto a new line
+ -the width and height properties are respected
+ -Padding, margin, and border will cause other elements to be pushed away from the box
+ -Box will extend in the inline direction to fill available space
+
+ HTML elements such as <h1> and <p> use BLOCK as outer display type by default
+
+ If a box has an out display type of INLINE
+
+ -the box will NOT break onto a new line
+ -the width and height properties will NOT apply
+ -vertical padding, margins, and border will apply but WILL NOT cause other inline boxes to move away from the box
+ -horizontal padding, margins, and borders will apply and WILL cause inline boxes to move away from the box
+
+ HTML elements like <a>, <span>, <em>, and <strong> use INLINE by default
+
+ Inner Display Type
+
+ dictates how elements INSIDE the box are laid out
+
+ block and inline layout is the default way things behave.
+
+ can change inner display type for example:
+ display: flex; 
+    element will still use the outer display type BLOCK but with an inner display of FLEX. Any direct cihldren will become flex items and behave according to flexbox
+ or 
+ display: grid;
+    direct children will behave according to grid
+ 
+ Key takeway:
+ Changing the value of display property can change whether outer display type of a box is block or inline-this changes the way it displays alongside other elements in the layout
+ 
+What is the CSS Box Model?
+
+as a whole, applies to block boxes and defines how the different parts of a box-margin, border, padding, and content-work together make the box you see on a page. 
+
+there is the standard model and an alternate box model. 
+broswers use standard box model by default
+
+  Parts of a Box
+
+  -Content Box: the area where content is displayed; size it using properties like inline-size and block-size or width and height
+  -Padding box: the padding sits around content; size it using padding property
+  -Border box: the border box (not to be confused with border-box) wraps the content and padding; size it using border
+  -Margin box: outermost layer, wrapping content, padding, and border as whitespace between this box and the next; size it using margin
+
+  The Standard CSS Box Model
+
+  if you give a box an inline-size and block-size (or width and height) attributes, this defines the inline-size and block-size (width and height in horizontal languages) of the <em>content box</em>.
+    Padding and Border are then added to those dimensions to get the total size taken up by the box.
+  
+  The Alternative CSS Box Model
+  
+  any width is the width of the visible box on the page. Content area width is that width minus the width for the padding and border. No need to add up the border and padding to get the real size of the box. 
+
+  to turn on alternative model for an element, set 
+  box-sizing: border-box
+  on it. 
+  
+  .box {
+    box-sizing: border-box;
+  }
+
+  to use alternative box model for all your elements (which is pretty damn common choice) set the box-sizing property on the <html> element and set all other elements to inherit that value::after
+
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+
+  Use Browser DevTools to View the Box Model
+
+Margins, Padding, and Borders
+
+These properties are shorthands and allow to set all four sides of the box at once. They do have equivalent longhand properties
+
+  Margin
+
+  Can be positive or negative
+    negative causes box to overlap other things on the page
+  
+  shorthand:
+  margin
+  
+  longhand:
+  margin-top
+  margin-right
+  margin-bottom
+  margin-left
+  
+  Margin Collapsing
+
+  -two positive margins will combine to become one margin. Size is equal to the largest individual margin
+  -two negative margins will collapse and the smallest (furthest from zero) value will be used
+  -one margin is negative, its value will be <em>subtracted</em> form the total. 
+
+  Remember: margin collapsing is a thing that happens if you are creating space with margins and don't get the space you expect.
+
+  Borders
+
+  border is drawn between the margin and the padding of a box
+
+  shorthand:
+  border: 
+  
+  longhand:
+  border-top
+  border-right
+  border-bottom
+  border-left
+
+  border contains these properties as well
+
+  border-width
+  border-style
+  border-color
+
+  can be longhand:
+
+  border-top-width
+  
+  border-right-style
+
+  border-bottom-color
+
+  etc
+
+  Padding
+
+  sits between the border and the content area and is used to push content away from the border. unlike margins, you cannot have a negative padding. background applied to element will display behind the padding
+
+  shorthand:
+  padding
+
+  longhand:
+  padding-top
+  padding-right
+  padding-bottom
+  padding-left
+
+  The Box Model and Inline Boxes
+  
+  all of the above applies to block boxes. Some of the properties can apply to inline boxes too, such as those created by a <span> element.
+
+  ex: 
+  span {
+    margin: 20px;
+    padding: 20px;
+    width: 80px;
+    height: 50px;
+    background-color: lightblue;
+    border: 2px solid blue;
+  }
+  <p>
+   I am a paragraph and this is a <span>span</span> inside that paragraph. A span is an inline element and so does not respect width and height.
+  </p>
+
+  Using display: inline-block
+
+  display: inline-block is a special value of display, provides a middle ground between inline and block.
+  use if you do NOT want an item to break onto a new line, but do want it to respect width and height and avoid overlapping seen in above example.
+
+  width and height properties are respected
+
+  padding, margin, and border will cause other elements to be pushed away from the box.
+    
+  ex:
+  span {
+    margin: 20px;
+    padding: 20px;
+    width: 80px;
+    height: 50px;
+    background-color: lightblue;
+    border: 2px solid blue;
+    display: inline-block;
+  }
+  <p>
+   I am a paragraph and this is a <span>span</span> inside that paragraph. A span is an inline element and so does not respect width and height.
+   </p>
+
+  Where this can be useful: 
+  
+  give a link a larger hit area by adding padding.
+  <a> is an inline element like <span>; use 
+  display: inline-block to allow padding to be set o it making it easier for a user to click the link.
+  */
+
+Backgrounds and Borders 
+/*
+
+Styling Backgrounds in CSS
+
+CSS background property is shorthand for a number of background longhand properties
+
+.box {
+  background: linear gradient(
+        105deg,
+        rgba(255, 255, 255, 0.2) 39%,
+        rgba(51, 56, 57, 1) 96%
+      ) center center / 400px 200px no-repeat, url(big-star.png) center
+      no-repeat, rebeccapurple;
+}
+
+Background Colors
+
+background-color property defines the background color an any element in CSS. property accepts any valid <color>. 
+background-color extends underneath the content and padding box of the element.
+
+Background Images
+
+background-image property enables the display of an image in the background of an element. 
+
+by default:
+
+-large images are NOT scaled down to fit the available space
+-small images are tiled to fill the available space
+
+NOTE: if you specify a background color in addition to a background image then the image dispalys on top of the color. 
+
+Controlling background-repeat
+
+background-repeat property is used to control the tiling behavior of images. available values are: 
+
+no-repeat   stop background from repeating altogether
+repeat-x    repeat horizontally
+repeat-y    repeat vertically
+repeat       default, repeat in both directions
+
+Sizing the Background Image
+
+background-size property can take length or percentage values, to size background image to fit inside background.
+can use keywords: 
+
+cover  
+browser will make image just large enough so it covers the box area while still retaining aspect ratio. In this case, part of the image is likely to end up outside the 
+box. 
+
+contain
+browser will make the image the right size to fit inside the box. may end up with gaps on either side or on the top and bottom if aspect ratio is different from that of the box.
+
+Positioning the Background Image
+
+background-position property allows you to choose the position in which the background image appears on the box it is applied to. 
+uses a coordinate system where top-left-hand corner of the box is origin (0,0) and box is positioned along x and y axes. 
+
+NOTE: default background-position value is (0,0)
+
+can also use keywords like top and right (there are more)
+background-position: top center;
+
+and lengths and percentages
+background-position: 20px 10%;
+
+and mix keyword values with lengths or percentages
+background-position: 20px top;
+
+can use a 4-value syntax to indicate distance from certain edges of the box - length unit, in this case, is an offset from the value that precedes it. in ex below we are positioning the background 20px from the top and 10px from the right: 
+background-position: top 20px right 10px;
+
+Gradient Backgrounds
+
+gradient - when used for a background- acts just like an image and is set with the background-image property. 
+
+can use one of many CSS Gradient Generators available on the web. create a gradient then copy and paste the source code. 
+
+Multiple Background Images
+
+can specify multiple background-image values in a single property value, separating with a comma
+
+background images may overlap each other. 
+backgrounds will layer with the last listed background image at the bottom of the stack, and each previous image stacking on top of the one that follows it in the code. 
+
+NOTE: gradients can be happily mixed with regular background images. 
+
+other background-* properties can also have comma-separated values in the same way as background-image
+
+background-image: url(image1.png), url(image2.png), url(image3.png), url(image4.png);
+background-repeat: no-repeat, repeat-x, repeat;
+background-position: 10px 30px, top right;
+
+values of different properties will match up to the values in the same position of other properties. 
+
+when different properties have different numbers of values, the smaller numbers of values will cycle. 
+
+first two position values will be applied to first two images, then will repeat for next images. 
+
+Background Attachment
+
+background-attachment propert controls how(/if) a background scrolls when the content scrolls. 
+can take the following values: 
+
+scroll: causes the elements background to scroll when the page is scrolled. if the element content is scrolled, the background does not move. In effect, background is fixed to the same position on the page, so it scrolls as the page scrolls. 
+
+fixed: element's background is fixed to the viewport so it doesn't scroll when the page or element content is scrolled. Will always remain in the same position on the screen. 
+
+local: fixes background to element it is set on, so when you scroll the element, the background scrolls with it. 
+
+background-attachment property only has an effect when there is content to scroll. 
+
+Using the Background Shorthand Property
+
+if using multiple background, need to specify all of properties for the first background, then add your next background after a comma. 
+
+Rules that need to be followed when writing background image shorthand values:
+
+a background-color may be only be specified after the final comma
+
+background-size may only be included immediately after background-position, separated with the '/' character, e.g. 
+center/80%
+
+.box {
+  background:
+    linear-gradient(105deg, rgba(255,255,255,.2) 39%, rgba(51,56,57) 96%) center center / 400px 200px no-repeat,
+    url(big-star.png) center no-repeat, rebeccapurple;
+}
+
+Accessibility Considerations with Backgrounds
+
+when placing text on top of a background image or color, take care that you have enough contrast for the text to be legible to visitors. 
+if specifying an image and if text will be placed on top of that image, you should also specify a background-color that will allow the text to be legible if the image does not load. 
+
+Borders
+
+typically we use a shorthand for border
+
+.box {
+  border: 1px solid black;
+}
+
+or we can target one edge of the box, for example
+
+.box {
+  border-top: 1px solid black;
+}
+
+individual properties for these shorthands would be: 
+
+.box {
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+}
+
+and the longhands
+
+.box {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: black;
+}
+
+Border styles:
+
+.box {
+  border-top-style: solid;
+  border-right-style: dashed;
+  border-bottom-style: dotted;
+  border-left-style: double;
+}
+
+Rounded Corners
+
+border-radius property and associated longhands which relate to each corner of the box. 
+
+two lengths or percentages may be used as a value
+
+1st value=horizontal radius
+2nd value=vertical radius
+
+when only one value is supplied it will be used for both
+
+1 value=horizontal and vertical radiuses
+
+for example, all four corners of a box
+
+.box {
+  border-radius: 10px;
+}
+
+or to make top right corner have a horizontal radius of 1em, and a vertial radius of 10%: 
+
+.box {
+  border-top-right-radius: 1em 10%
+*/
+
+Handling Different Text Directions
+/*
+
+in recent years CSS has evolved to support different directionality of content: right-to-left (ex arabic), top-to-bottom (ex japanese)-different directionalities are called
+
+writing modes
+
+What are Writing Modes?
+
+refers to whether the text is running horizontally or vertically. 
+
+writing-mode property switches from one to another.
+
+can also be used for style reasons. vertical text can be cool for a graphic look. 
+
+writing-mode: 
+
+horizontal-tb;
+top-to-bottom block flow direction. sentences run horizontally. 
+
+vertical-rl;
+right-to-leftblock flow direciton. sentences run vertically. 
+
+vertical-lr;
+left-to-right block flow direction. sentences run vertically. 
+
+writing-mode property is actually setting the direction in which block-level elements are displayed on the page: 
+either top-to-bottom, right-t0-left, or left-to-right. this then dictates the direction text flows in sentences
+
+Writing Modes and Block and Inline Layout
+
+block and inline is tied to the writing mode of the document and not the physical screen. 
+
+block dimension is always the direction blocks are displayed on the page in the writing mode in use. 
+
+inline dimension is always the direction a sentence flows.
+
+Direction
+
+in addition to writing mode we also have text direction. 
+(not likely to use this stylistically, there are better ways). 
+
+Newer CSS layout methods don't use left or right, top or bottom, but instead use start and end along with the idea of inline and block. 
+
+Logical Properties and Values
+
+when we need to change writing modes we need to use language that supports physical properties (width, height, etc) in that direction. 
+
+property mapped to "width" is called
+
+inline-size  refers to the inline direction
+
+property mapped to "height" is called
+
+block-size   refers to the block dimension. 
+
+Logical Margin, Border, and Padding Properties
+
+there are mappings for properties like margin-top, padding-left, border-bottom as well. 
+
+margin-top property is mapped to 
+
+margin-block-start   will always refer to the margin at the start of the block dimension
+
+padding-left maps to 
+
+padding-inline-start  padding applied to the start of the inline directio (where sentences start in that writing mode). 
+
+Logical Values
+
+top = block-start
+bottom = block-end
+left (sentence begin) = inline-start
+right (sentence end) = inline-end
+
+NOTE: currently only Firefox supports logical values (as of oct '22)
+
+Should You Use Physical or Logical Properties?
+
+ultimately people will gravitate towards logical properties, but for now it's ok to continue with physical properties. 
+*/
+
+Overflowing Content
+/*
+
+What is Overflow?
+
+everything in CSS is a box. 
+
+OVERFLOW happens when there is too much content to fit in a box. 
+
+CSS Tries to Avoid "Data Loss"
+
+why not hide overflowing content right away. Why not scale the size of the container to fit all the content?
+
+CSS does not hide content (wherever possible). this would cause 
+
+data loss
+
+the problem with data loss is that you might not notice. 
+
+it's better to know the problem is there than to not know. 
+
+if you restrict a box with a width or a height, CSS trusts you to know what you are doing. CSS assumes you are managing the potential for overflow. 
+
+in general, restricting the block dimension is problematic when the box contains text. There may be more text than expected, or the text may be larger (e.g. if the user has increased their font size). 
+
+The overflow Property
+
+overflow property
+how you control an element's overflow. 
+
+default value is 
+
+visible - you can see content when it overflows
+
+to crop content when it overflows, set to 
+
+overflow: hidden
+
+beware, this can make some content invisible. 
+
+perhaps, add scrollbars when content overflows?
+
+overflow: scroll;
+displays scrollbars-even if there is not enough content to overflow (keeps the layout consistent, instead of scrollbars appearing or disappearing, depending upon the amount of content in the container.
+
+sets scrollbars on both x and y axes. 
+to scroll on just the y-axis, you could use 
+
+overflow-y: scroll;
+
+sets a scrollbar on the y-axis only
+
+can use overflow-x, however this is not recommended. 
+
+better to use word-break or overflow-wrap properties
+
+NOTE: you can specify x and y scrolling using the overflow property, passing two values. if two keywords are specified, the first applies to overflow-x and the second to overflow-y. 
+Otherwise, both overflow-x and overflow-y are set to the same value. 
+e.g
+
+overflow: scroll hidden;
+sets overflow-x to scroll and overflow-y to hidden
+
+if you want scrollbars to appear ONLY when there is overflow, use
+
+overflow: auto;
+allows browser to determine if it should display scrollbars
+
+Overflow Establishes a Block Formatting Context
+
+when value of overflow such as scroll or auto are used, you create a 
+
+Block Formatting Context (BFC): 
+
+the content of the box acquires a self-contained layout. 
+content outside the container cannot poke into the container, and nothing can poke out of the container into the surrounding layout. 
+
+Unwanted Overflow in Web Design
+
+modern layout methods manage overflow. largely work without assumptions or dependencies for how much content there will be on a web page. 
+
+in the past, some sites were built with fixed-height containers to align bottoms of boxes. The boxes may otherwise have no relationship to each other. 
+
+This was fragile. 
+
+you may encounter a box where content is overlaying other content on the page. 
+
+When developing a site, always keep overflow in mind.
+-Test designs with large and small amounts of content. 
+-Increase the font sizes of text. 
+-Generally ensure that your CSS works in a robust way. 
+
+changing value of overflow to hide content, or to add scrollbars, is likely to be reserved for a few select use cases (e.g. where you intend to have a scrolling box). 
+
+Summary
+
+introduces the concept of overflow. 
+you should understand that defeault CSS avoids making overflowing content invisible. 
+*/
+
+CSS Values and Units
+/*
+
+What is a CSS Value?
+
+in CSS specs you will be able to spot value types as they will be surrounded by angle brackets such as 
+
+<color> or <length>
+
+if valid for a particular property, that means you can use any valid color or length as a value for that property. 
+
+NOTE: data types=value types. terms are used interchangeably.
+
+A value type in CSS is a way to define a collection of allowable values. 
+
+Numbers, Lengths, and Percentages
+
+various numeric valued types you may use in CSS
+
+Numeric: 
+
+<integer>
+a whole number such as 1024 or -55
+
+<number>
+represents a decimal number-may or may not have a decmal point with a fractional component e.g. 0.255, 128, -1.2
+
+<dimension>
+a <number> with a unit attached to it. e.g.
+45deg, 5s, 10px
+  <dimension> is an umbrella category that includes the <length>, <angle>, <time>, and <resolution> types
+
+<percentage>
+represents a fraction of some other value. e.g.
+50%
+always relative to another quantity e.g.
+an element's length is relative to its parent element's length
+
+Lengths
+
+numeric type you will come across most frequently is <length>
+e.g.
+10px or 30em.
+
+two types of lengths used in CSS: 
+
+relative and 
+absolute
+
+Absolute Length Units
+
+not relative to anything else, and are generally considered to always be the same size
+
+cm   centimeters   1cm = 37.8px = 25.2/64in
+mm   millimeters   1mm = 1/10th of 1cm
+Q    quarter-meters   1Q = 1/40th of 1cm
+in   inches        1in = 2.54cm = 96px
+pc   Picas         1pc = 1/6h of 1in
+pt   Points        1pt = 1/72nd of 1in
+px   Pixels        1px = 1/96th of 1in
+
+most of these units are more useful when used for print, rather than screen output. 
+
+Relative Length units
+
+relative to something else, perhaps the size of the parent element's font, or the size of the viewport. 
+benefit of using relative units is that with some careful planning you can make it so the size of text or other elements scales relative to everything else on the page. 
+
+em   font size of the parent, in the case of typographical properties like font-size
+and font size of the element itself, in the case of other properties like width
+
+ex   x-height of element's font
+ch   advance measure (width) of the glyph "0" of the element's font
+
+rem  font size of the root element
+lh   line height of the element
+rlh  line height of the root element. 
+vw   1% of the viewport's width
+vh   1% of the viewport's height
+vmin 1% of the viewport's smaller dimension
+vmax 1% of the viewport's larger dimension
+vb   1% of the size of the initial containing block in the direciton of the root element's block axis
+
+vi   1% of the size of the initial containg block in the direciton of the root element's inline axis
+
+svw, svh   1% of the small viewport's wdith and height, respectively
+
+lvw, lvh   1% of the large viewport's width and height, respectively
+
+dvw, dvh   1% of the dynamic viewport's width and height, respectively
+
+EMs and REMs
+
+very likely to encounter most frequently when sizing anything from boxes to text
+
+em unit means "my parent element's font size"
+
+rem unit means "the root element's font-size"
+
+Percentages
+
+In a lot of cases, percentage is treated like a length. 
+However, they are always set relative to some other value. 
+e.g.
+set an element's font-size as a percentage, it will be a percentage of the font-size of the element's parent
+
+use a percentage for a width value, it will be a percentage of the width of the parent. 
+
+NOTE: not all value types accept a percentage, some are length only
+
+Numbers
+
+some value types accept numbers, without any unit added to them. 
+e.g.
+opacity property, accepts a number between 0 (fully transparent) and 1 (fully opaque).
+
+Color
+
+many ways to specify color in CSS. 
+same color values can be used everywhere in CSS
+
+standard system is RGB (0-256 for each)
+
+Color Keywords
+
+preprogrammed keywords for color
+
+greenyellow
+antiquewhite
+red
+blue
+etc...
+
+Hexadecimal RGB Values
+
+each hex value consists of a hash/pound symbol (#) followed by six hexadecimal number, which can each be one of 16 values: 
+0123456789abcdef
+each pair of values represents an RGB color
+#02798b
+#c55da1
+#128a7d
+
+RGB and RGBA Values
+
+an RGB value is a function - rgb()- which is given three parameters that represent the red, green, and blue channel values of the colors. similar to hex values except uses one decimal number between 0 and 255
+rgb(2, 121, 139)
+rgb(197, 93, 161)
+rgb(18, 138, 125)
+
+RGBA
+works exactly the same as RGB, but there is a 4th value that represents the alpha channel of the color, which controls 
+opacity
+0=transparent
+1=fully opaque
+all values in between
+rgba(2, 121, 139, .3)
+rgba(197, 93, 161, .7)
+rgba(18, 138, 125, .9)
+
+NOTE: when using opacity property it makes everything in the element inside it opaque, whereas an RGBA value makes only the specified color opaque. 
+
+HSL and HSLA Values
+
+slightly less supported than RGB and RGBA
+
+HSL and HSLA stand for 
+
+Hue
+Saturation
+Lightness
+
+which represent the same 16.7 million colors, but in a different way
+
+hue: the base shade of the color. Takes a value between 0 and 360, representing the angles around a color wheel
+
+saturation: how saturated is the color? takes a value from 0-100%, where 0 is no color( it will appear as a shade of grey), and 100% is full color
+
+lightness: how light or bright is the color? takes a value from 0-100%, where 0 is no light (it will appear completely black) and 100% is full light (will appear completely white). 
+
+hsl(188, 97%, 28%)
+hsl(321, 47%, 57%)
+hsl(174, 77%, 31%)
+
+just as RGB has RGBA HSL has HSLA, gives the same ability to specify the alpha channel
+
+hsla(188, 97%, 28%, .3)
+hsla(321, 47%, 57%, .7)
+hsla(174, 77%, 31%, .9)
+
+you can use any color values in your project. can even mix and match
+however, 
+better for consistency to use the same value system throughout a project
+
+Images
+
+<image> value type is used wherever an image is a valid value. Can be an actual image file pointed to via a url() fucntion, or a gradient. 
+
+Position
+
+<position> value type represents a set of 2d coordinates, used to position an item such as a background image (via background-position). takes keywords such as top, left, bottom, right, and center, to align items with specific bounds of a 2d box, along with lengths, which represent offsets from the top and left-hand edges of the box. 
+
+typical position value consists of two values
+
+first sets the position horizontally
+
+second sets the position vertically
+
+if you only specify values for one axis the other will default to center
+
+Strings and Identifiers
+
+keywords are more accurately describied as 
+
+identifiers
+
+a special value that CSS understands. As such they are not quoted-they are treated as strings.
+
+there are places to use strings in CSS, e.g. when specifying generated content.
+In this case, the value is quoted to demonstrate that it is a string. 
+
+.box::after {
+  content: "This is a string. I know because it is quoted in the CSS."
+}
+
+Functions
+
+in programming, a function is a reusable section of code that can be run multiple times to complete a repetitive task with minimum effort on the part of both the developer and the computer. 
+
+functions are usually associated with languages like JS, Python, or C++, but they do exist in CSS too, as property values. 
+We've already seen functions in action in the Colors section-
+rgb(), hsl(), etc. 
+the value used to return an image from a file-
+url()
+is also a function. 
+
+a more traditional example is the 
+calc() CSS function.
+function gives you the ability to do simple calculations inside your CSS. particularly useful if you want to work out values that you can't define when writing the css for your project, and need the borwser to work out for you at runtime. 
+
+.wrapper {
+  width: 400px;
+}
+
+.box {
+  width: calc(20% + 100px);
+}
+
+<div class="wrapper">
+  <div class="box">My width is calculated.</div>
+</div>
+
+here, we don't know what 20% of the parent will be, so we use calc to tell the browser to do it for us based on the size of the parent. 
+*/
+
+Sizing Items in CSS
+/*
+
+The Natural or Intrinsic Size of Things
+
+HTML elements have a natural size, set before they are affected by any CSS. This is described as the 
+intrinsi size
+
+e.g. an image has an intrinsic size, native to it before we apply any CSS
+
+an empty <div> on the other hand, has no size of it's own. It takes it's size from the content within, and with no content it is just an empty block element (stretches across the page as a line). 
+
+Setting a Specific Size
+
+When a size is given to an element we refer to it as an 
+
+extrinsic size
+
+take the <div> from above. We can give it specific width and height values, and it will now have that size no matter what content is placed into it. 
+however, a set height can cause content to overflow if there is more content than the element has space to fit inside it. 
+
+we need to be very careful about fixing (*setting) heights with lengths and percentages
+
+Using Percentages
+
+percentages can often be used interchangeably with lengths. 
+
+when using a percentage be aware what it is a percentage of
+
+a child box with a percentage width will be a percentage of the width of the parent container
+
+percentages resolve against the size of the containing block.
+
+Percentage Margins and Padding
+
+setting margins and padding as a percentage leads to some strange behavior
+
+when you use margin and padding set in percentages, the value is calculated from the 
+inline size
+ of the containing block-therefore the width when working in a horizontal language.
+
+ Min- and Max- Sizes
+
+ we can also ask CSS to give an element a minimum or maximum size. 
+
+ if you have a box that will contain a variable amount of content, and you always want it to be at least a certain height, you could set the min-height property. 
+ the box will always be at least this tall, but will grow taller if there is more content than the box has space for at it's minimum height. 
+
+ very useful for dealing with variable amounts of content while avoiding overflow
+
+ common use of max-width is to cause images to scale down if there is not enough space to display them at their intrinsic width while making sure they don't become larger than that width
+
+ set an image to 
+ max-width: 100%
+
+ and if it's intrinsic width is smaller than it's container, the image will NOT be forced to stretch and become larger, thus preventing pixelation. 
+
+ the image will also be able to shrink to accommodate a smaller container
+
+ technique is used to make images responsive, so that they scale down appropriately when viewed on a smaller device. 
+
+ don't lean too heavily though, don't make it scale a huge image down. 
+
+ Images should be appropriately sized to be no larger than they need to be for the largest size they are displayed in the design. 
+
+ Viewport Units
+
+ viewport=visible size of your page in the browser you are using to view a site-also has a size
+
+ vw for viewport width
+
+ vh for viewport height
+
+ using these units you can size something relative to the viewport of the user. 
+
+ 1vh = 1% of the viewport height
+
+ 1vw = 1% of the viewport width
+
+ sizing things according to the viewport can be useful.
+
+ for example, if you want a full-page hero section to show before the rest of your content, making that part of your page 100vh high will push th rest of the content below the viewport, meaning that it will only appear once the document is scrolled. 
+
+ 
+
+
+  
+  **Margin from https://css-tricks.com/almanac/properties/m/margin
+  /*
+
+  Margin is set using lengths, percentages, or the keyword auto and can have negative values::after
+  ex:
+  .box {
+    margin: 0 3dm 0 3em;
+  }
+
+  Margin is a shorthand property and accepts up to 4 values
+
+  .box {
+    margin: <margin-top> || <margin-right> || <margin-bottom> || <margin-left>;
+  }
+
+  If less than four values are set, the missing values are assumed basoned on ones that are defined. 
+
+  if 2 values are declared:
+  margin: <top & bottom> <right & left>;
+
+  if 3 values are declared:
+  margin: <top> <left & right> <bottom>;
+
+  if 1 value declared:
+  margin: <all sides>
+  */
+
+  Normal Flow - MDN CSS Module
+  /*
+
+  Normal Flow is the default for a page
+
+  How are Elements Laid Out by Default?
+
+  process begins as boxes of individual elements-
+  the box model
+
+  By default, 
+  block level elements content fills available inline space of parent element containing it and grows along block dimension to accomodate its content. 
+  inline elements are just the size of their content 
+  -no width or height on inline elements-they just sit inside the content of block level elements
+  -if you want to control size of inline element you need to set it to behave like a block level element 
+  (e.g. with 
+  display: block;
+  display: inline-block;
+
+  Normal layout flow is the system by which elements are placed into a browsers viewport. 
+
+  by default, block level elements are laid out in the <em>block flow direction</em>, which is based on the parent's writing mode (initial: horizontal-tb). 
+  -each element will appear on a new line below the last one
+
+  simply: block-level elements are laid out vertically. 
+
+  Inline elements behave differently. 
+  they all sit on the same line as long as there is space for them to do so inside the width of the parent block level element. 
+
+  Collapsing margins is ONLY RELEVANT in the vertical direction
+
+  */
+
+  HTML Block and Inline Elements :
+  -from W3schools:https://www.w3schools.com/html/html_blocks.asp
+  /*
+
+  Every HTML element has a default display value
+
+  There are two display values: 
+  Block
+  Inline
+
+  block level element always starts on a new line and browsers automatically add margin. 
+
+  block level element always takes up the full width available (stretches out to the left and right as far as it can). 
+
+  Block level elements in HTML:
+
+  <address>
+  <article>
+  <aside>
+  <blockquote>
+  <canvas>
+  <dd>
+  <div>
+  <dl>
+  <dt>
+  <fieldset>
+  <figcaption>
+  <figure>
+  <footer>
+  <form>
+  <h1>-<h6>
+  <header>
+  <hr>
+  <li>
+  <main>
+  <nav>
+  <noscript>
+  <ol>
+  <p>
+  <pre>
+  <section>
+  <table>
+  <tfoot>
+  <ul>
+  <video>
+
+  Inline Elements
+
+  inline element does not start on a new line
+
+  only takes up as much width as necessary for content
+
+  Inline Elements in HTML
+
+  <a>
+  <abbr>
+  <acronym>
+  <b>
+  <bdo>
+  <big>
+  <br>
+  <button>
+  <cite>
+  <code>
+  <dfn>
+  <em>
+  <i>
+  <img>
+  <input>
+  <kbd>
+  <label>
+  <map>
+  <object>
+  <output>
+  <q>
+  <samp>
+  <script>
+  <select>
+  <small>
+  <span>
+  <strong>
+  <sub>
+  <sup>
+  <textarea>
+  <time>
+  <tt>
+  <var>
+
+  Note: an inline element cannot contain a block-level element
+
+  The <div> Element
+
+  <div> element often used as a container for other HTML elements
+
+  <div> element has no required attributes, but STYLE, CLASS, and ID are common.
+
+  When used together with CSS, the <div> element can be used to style blocks of content:
+
+  <div style="...">
+    <h2></h2>
+    <p></p>
+  </div>
+
+  The <span> Element
+
+  <span> element is an inline container used to mark up a part of a text, or a part of a document
+
+  <span> element has no required attributes, but STYLE, CLASS, and ID are common
+
+  When used together with CSS, the <span> element can be used to style parts of the text:
+
+  <p>...<span style="..."></span>...<span style="..."></span>...</p>
+  */
+
+  Inline vs. Inline-Block Display in CSS
+  -from: Digital Ocean   https://www.digitalocean.com/community/tutorials/css-display-inline-vs-inline-block
+  /*
+
+  major difference between display:inline and display:inline-block 
+  inline-block allows to set a width and height on the element
+  inline-block respects top and bottom margins and paddings (display:inline does not)
+
+  */
+
+  Flexbox
+  from MDN:https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
+
+  /*
+  Flexbox is a one-dimensional layout method for arranging items in rows or columns. 
+  Items <em>flex</em> (expand) to fill additional space or shrink to fit into smaller spaces. 
+
+  Why Flexbox?
+
+  before flexbox we had floats and positioning
+  but some things were difficult/impossible:
+  -vertically centering a block of content inside its parent
+  -making all the children of a container take up an equal amount of the available width/height, regardless of how much width/height is available
+  -making all columns in a multiple-column layout adopt the same hieght even if they contain a different amount of content
+
+  Specifying What Elements to Lay Out as Flexible Boxes
+
+  set special value
+  display: flex 
+  onto the parent element of the elements you want to affect
+
+  <parent> {
+    display: flex;
+  }
+
+  This is now a flex container and is a block element
+
+  alternately, can set 
+  display: inline-flex;
+  this is a flex container that behaves like an inline element
+
+  the Flex Model
+
+  when elements are laid out as flex items, they are laid out along two axes:
+  
+  -Main Axis: direction the flex items are laid out in (ex. rows across teh page or columsn down the page).  
+    Start and end are called 
+    main start
+    main end
+  -Cross Axis: direction perpendicular to direction flex items are laid out in. 
+  -Parent element: has display: flex; set on it
+    called the flex container
+  -Flex Items: items laid out as flexible boxes inside the flex container
+  
+  Columns or Rows?
+
+  flex-direction: <row>/<column>/<row-reverse>/<column-reverse>
+
+  default set to row (ltr in english)
+
+  Wrapping
+
+  When you have a fixed width or heigh in the layout, eventually the flexbox children (if there are enough of them) will overflow their container, breaking the layout. 
+
+  flex-wrap: wrap;
+
+  will create multiple rows. Each row has as many flexbox children fitted into it as is sensible. Any overflow is moved down to the next line. 
+  remaining children in last row will stretch to fill the space
+
+  flex-flow shorthand
+
+  flex-flow: <flex-direction> <flex-wrap>;
+
+  Flexible Sizing of Flex Items
+
+  flex: <0/1/auto/...>;
+
+  flex: ; is a unitless proportion value that dictates how much available space along the main axis each flex item will take up compared to other flex items. 
+
+  This value is proportionally shared among the flex items: giving each flex item (ex:) a value of 400000 would have exactly the same effect-value is for proportion not for units
+
+  article {
+    flex: 1;
+  }
+
+  Can think of in terms of proportion "units":
+  3 children with 
+  flex: 1;
+  means 3 proportion units (1+1+1)
+  ex:
+
+  article {
+    flex: 1;
+  }
+
+  2 children with 
+  flex: 1;
+  1 child with
+  flex: 2;
+  means 4 proportion units(1+1+2)
+  the 3d child will take up twice as much space as either of the others. 
+  ex:
+
+  article {
+    flex: 1;
+  }
+
+  article:nth-of-type(3) {
+    flex: 2;
+  }
+
+  can also specify a minimum size to go with it:
+
+  article {
+    flex: 1 200px;
+  }
+
+  article:nth-of-type(3) {
+    flex: 2 200px;
+  }
+
+  the above basically states
+  "Each flex item will first be given 200px of the available space. After that, the rest of the available space will be shared according to the proportion units."
+
+  The real value of flexbox is it's flexibility/responsiveness. If you resize the browser window or add another <element>, the layout continues to work just fine. 
+
+  flex: shorthand vs. longhand
+
+  flex: is a shorthand property that specifies up to 3 different values:
+
+  flex-grow: unitless proportion value. Defaults to 1 when omitted (initial is 0)
+
+  flex-shrink: value specifies how much an item will shrink in order to prevent overflow. Defaults to 1 when omitted (initial is 1) (advanced flexbox mechanic)
+
+  flex-basis: minimum size value. Defaults to 0 when omitted (initial is auto) (discussed above)
+
+  shorthand flex properties are recommended unless you really have to use longhand for something specific. 
+
+  Good way to think of flex shorthand:
+  -from: https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/
+
+  flex: <max> <min> <ideal size> 
+
+
+  keyword values:
+  flex: auto;
+  flex: initial;
+  flex: none;
+
+  One-value syntax: the value must be one of:
+
+  -a <number>: interpreted as
+  flex: <number> 1 0; flex-shrink value assumed to be 1 and flex-basis value assumed to be 0.
+
+  -a <width>: interpreted as flex: 1 1 <width>; flex-grow value is assumed to be 1 and the flex-shrink value is assumed to be 1. 
+  
+  -one of the keyword: none, auto, initial.
+
+  One value, unitless number: flex-grow. 
+  flex: 2;
+
+  One value, width/height: flex-basis
+  flex: 10em;
+  flex: 30%;
+  flex: min-content;
+
+  Two-value syntax:
+
+  first value must be:
+  
+  -a <number>:interpreted as <flex-grow>
+
+  second value must be one of:
+
+  -a <number>: interpreted as <flex-shrink>
+
+  -a valid value for <width>: interpreted as <flex-basis>  
+
+  Two values: flex-grow | flex shrink
+  flex: 2 2;
+
+  Two values: flex-grow | flex-basis
+  flex: 1 30px;
+
+  Three-value syntax: values must be in the following order:
+
+  1. a <number> for <flex-grow>
+  2. a <number> for <flex-shrink>
+  3. a valid value for width for <flex-basis>
+
+  Three values: flex-grow | flex-shrink | flex-basis
+  flex: 2 2 10%;
+
+  Values:
+
+  initial
+    the item is sized according to its width and height properties. It shrinks to its minimum size to fit container, but does not grow to absorb any extra free space in teh flex container. equivalent to:
+    flex: 0 1 auto;
+
+  auto
+    item is sized according to its width and height properties, but grows to absorb any extra free space in the flex container, and shrinks to its minimum size to fit the container. equivalent to:
+    flex: 1 1 auto;
+
+  none
+    item is sized according to its width and height properties. It is fully inflexible: neither shrinks nor grows in relation to the flex container. equivalent to:
+    flex: 0 0 auto;
+
+  Horizontal and Vertical Alignment
+
+  align-items: ; controls where teh flex items sit on the <em>cross axis</em>
+  
+  -stretch; this is the default. stretches all flex items to fill the parent in the direction of the cross axis. 
+    -if parent doesn't have a fixed height in the cross axis direction, then all flex items will become as tall as the tallest flex item. 
+  -center; items maintain intrinsic dimensions, but are centered along the cross axis. (if set up for rows, then centers on vertical axis and vice versa).
+  -flex-start; or flex-end; align all items at start or end of the cross axis respectively. 
+
+  can override align-items behavior for individual flex items by appling align-self property to them. 
+
+  justify-content: ; controls where the flex items sit on main axis. 
+
+  -flex-start; default value. all items sit at the start of the main axis.
+  -flex-end; make them sit at the end.
+  -center; flex items sit in the center of the main axis.
+  -space-around; distributes all items evenly along the main axis with equal space at either end.
+  -space-between; very similar to space-around; but leaves NO space at either end. 
+  -space-evenly; very similar to space-between, but has equal space on all sides. 
+
+  note:
+  justify-items property is ignored in flexbox layouts
+  
+  Ordering Flex Items
+
+  -by default, all flex items have an order value of 0.
+
+  -flex items with higher specified order values appear later in the display order than items with lower order values 
+  ( 0 0 0    1 1 1   2 2 2   etc)
+
+  -flex items with same order value will appear in source order.
+
+  -can set negative order values to make items appear earlier than items whose value is 0. 
+
+  Nested Flex Boxes
+
+  flex-items can be flex-containers allowing nesting
+
+  Using Auto Margins for Main Axis Alignment
+
+  justify-items and justify-self properties are not available for individual items on the main axis, items are treated as a group on the main axis. 
+  BUT
+  we can separate an item or group of items from others by using
+  auto margins   along with flexbox
+
+  Common pattern is a nav bar with some items aligned to right and main group on the left. 
+
+  ex:
+  .box {
+    display: flex;
+  }
+
+  .push {
+    margin-left: auto;
+  }
+
+  <div class="box">
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+    <div class="push">Four</div>
+    <div>Five</div>
+  </div>
+  
+  Auto margins will take up all of the space that they can in their axis-it's how centering a block with margin auto left and right works. Each side tries to take as much space as it can, and so the block is pushed into the middle. 
+
+  In the example above, the auto margin-left cause the box margin to eat up all the space separating the box(es) from the others. 
+
+  Creating Gaps Between Items
+
+  to create a gap between flex items, use
+  
+  column-gap: gaps between items on the main axis
+  row-gap: gaps between flex lines, when flex-wrap set to wrap
+  gap: shorthand that sets both column-gap and row-gap
+
+  Typical Use Cases of Flexbox 
+  from MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Typical_Use_Cases_of_Flexbox
+
+  Navigation
+
+  a horizontal nav bar could be considered the ideal flexbox use case
+
+  split navigation
+
+  use the auto-margins trick to separate flex items.
+
+  Center Item
+
+  before flexbox, vertical centering was VERY difficult
+
+  w/flex though,
+  parent {
+    display: flex;
+  }
+
+  either use
+
+  align-items: center;
+  on parent 
+  or 
+  align-self: center; 
+  on child
+
+  Card Layout Pushing Footer Down
+
+  see example in article
+
+  Media Objects
+
+  media object:
+  pattern has an image or other element toone side and text to the other. ideally, this should be able to be flipped. 
+
+  Form Controls
+
+  see example in article
+
+
+
