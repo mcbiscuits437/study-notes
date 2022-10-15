@@ -584,7 +584,7 @@ matches elements with an attr attribute whose value is exactly value-the string 
 [attr~=value]    p[class~="special"]
 Matches elements with an attr attribute whose value is exactly value or contains value in its (space separated) list of values
 
-[attr|=value]    div[lang]="zh"]
+[attr|=value]    div[lang|="zh"]
 matches elements with an attr attribute whose value is exactly value or begins with value immediately followed by a hyphen. 
 
 ex:
@@ -1828,8 +1828,120 @@ inline size
  sizing things according to the viewport can be useful.
 
  for example, if you want a full-page hero section to show before the rest of your content, making that part of your page 100vh high will push th rest of the content below the viewport, meaning that it will only appear once the document is scrolled. 
+*/
 
- 
+Images, Media, and Form Elements
+/*
+
+images, other media, and form elements behave a little differently from regular boxes in terms of ability to style them with CSS. 
+
+Replaced Elements
+
+images and video are described as replaced elements.
+
+means CSS cannot affect the internal layout of these elements-only their position on the page amonst other elements. 
+
+aspect ratio-certain replaced elements (images and video) are also described as having an aspect ratio-means size in both x and y dimensions and will be displayed using the intrinsic dimensions of the file by default. 
+
+Sizing Images
+
+what to do with an image in a box-larger, smaller, overflow, no overflow?
+
+remember max-width: 100%;?
+will also work with other replaced elements like <video> or <iframe>
+
+other options: 
+may want to size an image so it completely covers a box
+
+object-fit property can be used to size a replaced element in a variety of ways
+
+object-fit: cover; fills the box with the image while preserving aspect ratio. you may not see all of the image
+
+object-fit: contain; image will be scaled down until it is small enough to fit inside the box. will result in "letterboxing" if it is not the same aspect ratio as the box
+
+object-fit: fill; will fill the box but will NOT maintain the aspect ratio.
+
+Replaced Elements in Layout
+
+when using a replaced element in a flex or grid configuration, the element will NOT stretch to fill the space like a regular box
+
+there are ways to make this happen, but just know they will not behave the way we expect regular boxes to
+
+Form Elements
+
+form elements can be tricky to style with CSS.
+
+many form controls are added to your page by way of the <input> element-defines simple form fields such as text inputs, through to more complex fields like color and date pickers. 
+other elements like <textarea> for multiline text input
+and elements used to contain and lavel parts of forms such as <fieldset> and <legend>
+
+Styling Text Input Elements
+
+elements that allow for tet input, such as <input type="text"> and the more specific <input type="email"> and the <textarea> element are easy to style and tend to behave like other boxes. 
+
+NOTE: take care when styling a form to be sure that it is still obvious it is a form. if the user can't tell they need to input something thats bad design
+
+Inheritance and Form Elements
+
+in some browsers, form elements do not inherit font styling by default. 
+include this to be sure they do
+
+button,
+input,
+select,
+textaread {
+  font-family: inherit;
+  font-size: 100%;
+}
+
+Form Elements and Box-sizing
+
+across browsers, form elements use different box sizing rules for different widgets. 
+
+for consistency, it is a good idea to set margins and padding to 0 on all elements, then add these back in when styling particular controls
+
+button,
+input,
+select,
+text-area {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+Other Useful Settings
+
+in addition to rules mentioned above, you should also set overflow: auto on <textarea> to stop IE showing a scrollbar when there is no need for one:
+
+textarea {
+  overflow: auto;
+}
+
+Putting it All Together into a "Reset"
+
+as a final step, we can wrap up the various properties above into the following "form reset" to provide a consistent base to work from
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+textarea {
+  overflow: auto;
+}
+
+NOTE: normalizing stylesheets are used by many developers to create a set of baseline styles to use on all projects. typically similar to the things above. 
+not as important as they were, browsers are being more consistent now.
+but can check out
+https://necolas.github.io/normalize.css/
+to see a very popular stylesheet used as a base for many projects
+
 
 
   

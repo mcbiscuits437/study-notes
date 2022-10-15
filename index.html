@@ -625,7 +625,7 @@
       -->
 
       Debugging <HTML></HTML>
-
+      <!--
       Debugging doesn't have to scary-the key to being comfortable with writing and debuggin any programming language or code is familiarity with both the language and the tools
 
       HTML and Debugging
@@ -642,7 +642,419 @@
 
       Browsers parse HTML permissively, meaning the page still displays even if there are syntax errors. 
 
-      
+      -->
+
+
+
+
+HTML Tables
+
+from MDN: https://developer.mozilla.org/en-US/docs/Learn/HTML/Tables
+
+HTML Table Basics
+<!--
+
+What is a Table?
+
+a table is a structured set of data made up of rows and columns (tabular data).
+
+A table allows you to quickly and easily look up values that indicate some kind of connection between different types of data, e.g. a person and their age, or a day of the week, or the timetable for a local swimming pool. 
+
+How Does a Table Work?
+
+The point of a table is that it is rigid. 
+information is easily interpreted by making visual associations between row and column headers. 
+
+when implemented correctly, HTML tables are handled well by accessibility tools like screen readers
+
+Table Styling
+
+for tables to be effective on the web, you need to provide some styling info with CSS, as well as good solid structure with HTML.
+
+When Should You NOT Use HTML Tables?
+
+HTML tables should be used for tabular data
+
+NOT for laying out web pages
+
+used to be a more common practice, CSS support across browsers was NOT good. 
+
+Active Learning: Creating Your First Table
+
+content of every table is enclosed in 
+<table>
+</table>
+
+smallest container inside a table is a table cell, created using <td></td> ('td' stands for 'table data'). 
+
+<table>
+  <td>Hi, I'm your first cell.</td>
+  <td>I'm your second cell.</td>
+  <td>I'm your third cell.</td>
+  <td>I'm your fourth cell.</td>
+</table>
+
+  table cells line up horizontally with each other and each subsequent cell makes the row longer.
+
+  to place cells into another row we need to use the <tr></tr> element ('tr' stands for 'table row').
+
+<table>
+  <tr>
+    <td>Hi, I'm your first cell.</td>
+    <td>I'm your second cell.</td>
+    <td>I'm your third cell.</td>
+    <td>I'm your fourth cell.</td>
+  </tr>
+  <tr>
+    <td>Second row, first cell.</td>
+    <td>Cell 2.</td>
+    <td>Cell 3.</td>
+    <td>Cell 4.</td>
+  </tr>
+</table>
+
+Adding Headers with <th> Elements
+
+table headers-special cells that go at the start of a row or column and define the type of data that row or column contains 
+
+<table>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Knocky</td>
+    <td>Flor</td>
+    <td>Ella</td>
+    <td>Juan</td>
+  </tr>
+  <tr>
+    <td>Breed</td>
+    <td>Jack Russell</td>
+    <td>Poodle</td>
+    <td>Streetdog</td>
+    <td>Cocker Spaniel</td>
+  </tr>
+  <tr>
+    <td>Age</td>
+    <td>16</td>
+    <td>9</td>
+    <td>10</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Owner</td>
+    <td>Mother-in-law</td>
+    <td>Me</td>
+    <td>Me</td>
+    <td>Sister-in-law</td>
+  </tr>
+  <tr>
+    <td>Eating Habits</td>
+    <td>Eats everyone's leftovers</td>
+    <td>Nibbles at food</td>
+    <td>Hearty eater</td>
+    <td>Will eat till he explodes</td>
+  </tr>
+</table>
+
+problem here is that they are not exactly easy to read. 
+
+if the column and row headings stood out in some way, it would be much better. 
+
+Active Learning: Table Headers
+
+<th></th> denotes a table header. Works the same way as a <td></td> except that it denotes a header, not a normal cell. 
+
+Why are Headers Useful?
+
+easier to find the data you are looking for when the headers clearly stand out (and the design just looks better). 
+
+Also have an added benefit-along with the scope attribute, they allow you to make tables more accessible by associating each header with all the data in the same row or column. 
+
+Allowing Cells to Span Multiple Rows and Columns
+
+table headers and cells have the 
+colspan
+rowspan
+attributes, which allow us to do just those things. 
+
+Both accept a unitless number value, which equals the number of rows or columns you want spanned. 
+
+<table>
+  <tr>
+    <th colspan="2">Animals</th>
+  </tr>
+  <tr>
+    <th colspan="2">Hippopotamus</th>
+  </tr>
+  <tr>
+    <th>Horse</th>
+    <td>Mare</td>
+  </tr>
+  <tr>
+    <td>Stallion</td>
+  </tr>
+  <tr>
+    <th>Crocodile</th>
+  </tr>
+  <tr>
+    <th>Chicken</th>
+    <td>Hen</td>
+  </tr>
+  <tr>
+    <td>Rooster</td>
+  </tr>
+</table>
+
+Providing Common Styling to Columns
+
+Styling without <col>
+
+HTML has a method of defining styling info for an entire column of data all in one place-the
+<col></col>
+<colgroup></colgroup>
+elements
+
+help to specify styling on columns
+otherwise you'd have to specify every <td></td> and <th></th> in column, or use a complex selector such as 
+:nth-child.
+
+NOTE: styling columns like this is limited to a few properties:
+border
+background
+width
+visibility
+to set other properties you'll have to either style every <td></td> or <th></th> in the column or use a complex selector such as :nth-child
+
+ex: 
+<table>
+  <tr>
+    <th>Data 1</th>
+    <th style="background-color: yellow">Data 2</th>
+  </tr>
+  <tr>
+    <td>Calcutta</td>
+    <td style="background-color: yellow">Orange</td>
+  </tr>
+  <tr>
+    <td>Robots</td>
+    <td style="background-color: yellow">Jazz</td>
+  </tr>
+</table>
+
+Not ideal as we have to repeat the style info across all three cells in the column (we'd probably have a class set on all three in a real project and specify the styling in a separate stylesheet).
+
+Styling with <col>
+
+Instead of doing above, we can specify the info once, on a <col>
+element. 
+<col> elements are specified inside a 
+<colgroup> container just below the opening <table> tag.
+
+<table>
+  <colgroup>
+    <col />
+    <col style="background-color: yellow" />
+  </colgroup>
+  <tr>
+    <th>Data 1</th>
+    <th>Data 2</th>
+  </tr>
+  <tr>
+    <td>Calcutta</td>
+    <td>Orange</td>
+  </tr>
+  <tr>
+    <td>Robots</td>
+    <td>Jazz</td>
+  </tr>
+</table>
+
+Effectively we are defining two "style columns", one specifying styling info for each column. 
+
+we are not styling the first column, but we still have to include a blank <col> element-if we didn't, the styling would just be applied to the first column. 
+
+if we wanted to apply the style info to both columns, we could just include one <col> element with a span attribute on it
+
+<colgroup>
+  <col style="background-color: yellow; span="2" />
+</colgroup>
+
+just like colspan and rowspan, span takes a unitless number value that specifies the number of columns you want the styling to apply to. 
+
+-->
+
+HTML Table Advanced Features and accessibility
+
+<!--
+
+Adding a Caption to your Table with <caption>
+
+can give a table a caption by putting it inside a 
+<caption> element and nesting inside the <table> element. It should be just below the opening <table> tag
+
+<table>
+  <caption>
+    Dinosaurs are Awesome
+  </caption>
+  ...
+</table>
+
+meant to contain a description of table contents. 
+useful for all readers
+
+particularly useful for blind users-screen reader will read caption first and then they can decide if they want to hear info in the cells. 
+
+NOTE: the summary attr can also be used on the <table> element to provide a description. 
+  while this is read out by screen readers, it is deprecated (it doesn't appear on the page).
+
+Adding Structure with <thead>, <tfoot>, and <tbody>
+
+tables with more complex structure should have more structural definition. 
+
+<thead>, <tfoot>, and <tbody> all you to mark up a header, footer, and body section for the table. 
+
+these elements don't elp with screen readers, and don't result in any visual changes.
+however,
+they are very useful for styling and layout-acting as useful hooks for adding CSS to the table. 
+
+To use them: 
+
+<thead> element must wrap the header-usually the first row containing column headings, but not always.
+  if using <col>/<colgroup> element(s), <thead> should come just below those.
+
+<tfoot> element needs to wrap the footer-might be the final row with items in previous rows summed, for example. 
+you can include the table footer right at the bottom of the table as you'd expect, or just below table header (browser will still render at bottom of table).
+
+<tbody> element needs to wrap the other parts of the table content that aren't in table header or table footer. 
+will appear below the table header or sometimes footer, depending on how you decide to structure. 
+
+NOTE: <tbody> is always included in every table, implicitly, even if you don't specify it in your code. Browser will add a tag for it (can see in dev tools). Worth including because it gives you more control over your table structure and styling. 
+
+Nesting Tables
+
+if necessary, you can nest a table inside another table. Just be sure to use the <table> element. 
+
+ex:
+
+<table id="table1">
+  <tr>
+    <th>title1</th>
+    <th>title2</th>
+    <th>title3</th>
+  </tr>
+  <tr>
+    <td id="nested">
+      <table id="table2">
+        <tr>
+          <td>cell1</td>
+          <td>cell2</td>
+          <td>cell3</td>
+        </tr>
+      </table>
+    </td>
+    <td>cell2</td>
+    <td>cell3</td>
+  </tr>
+  <tr>
+    <td>cell4</td>
+    <td>cell5</td>
+    <td>cell6</td>
+  </tr>
+</table>
+
+Tables for Visually Impaired Users
+
+Not difficult for screen readers with plain text, but tables can be tough. 
+
+Using Column and Row Headers
+
+screen readers will id all headers and use them to make programmatic associations between those headers and the cells they relate to. 
+the combo of column and row headers will id and interpret the data in each cell so screen reader users can interpret the table similarly to how a sighted user does.
+
+The Scope Attribute
+
+scope attribute can be added to the <th> element to tell screen readers exactly what cells the header is a header for-is it a header for the row it is in, or the column, for example?
+
+for example, could unambiguously define the column headers as column headers like this:
+
+<thead>
+  <tr>
+    <th scope="col">Purchase</th>
+    <th scope="col">Location</th>
+    <th scope="col">Date</th>
+    <th scope="col">Evaluation</th>
+    <th scope="col">Cost (€)</th>
+  </tr>
+</thead>
+
+and each row could have a header defined like this 
+
+<tr>
+  <th scope="row">Haircut</th>
+  <td>Hairdresser</td>
+  <td>12/09</td>
+  <td>Great idea</td>
+  <td>30</td>
+</tr>
+
+screen readers will recognize markup structured like this, and allow their users to read out the entire column or row at once, for example. 
+
+scope has two more possible values-
+
+colgroup and
+rowgroup
+
+scope="colgroup"
+as opposed to 
+scope="col"
+
+these are used for headings that sit over the top of multiple columns or rows. 
+
+The id and headers Attributes
+
+alternative to using the scope attribute is to use id and headers attributes to create associations b/w beaders and cells. used as follows:
+
+1. add a unique id to each <th> element
+2. add headers attribute to each <td> element. each headers attribute has to contain a list of the ids of all the <th> elements that act as a header for that cell, separated by spaces. 
+
+gives your HTML table an explicit definition of the position of each cell in the table, defined by the header(s) for each column and row it is a part of, kind of like a spreadsheet. For it to work well, the table really needs both column and row headers. 
+
+could be written like this:
+
+<thead>
+  <tr>
+    <th id="purchase">Purchase</th>
+    <th id="location">Location</th>
+    <th id="date">Date</th>
+    <th id="evaluation">Evaluation</th>
+    <th id="cost">Cost ($)</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th id="haircut">Haircut</th>
+    <td headers="location haircut">Hairdresser</td>
+    <td headers="date haircut">12/09</td>
+    <td headers="evaluation haircut">Great idea</td>
+    <td headers="cost haircut">30</td>
+  </tr>
+  ...
+</tbody>
+
+NOTE: this method creates very precise associations between headers and data cells but it uses A LOT more markup and does not leave any room for errors. The scope approach is usually enough for most tables. 
+
+
+
+
+
+-->
+
+
+
+
+-->
+
+
+-->
   
       
 
