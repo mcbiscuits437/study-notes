@@ -1213,7 +1213,7 @@ first two position values will be applied to first two images, then will repeat 
 
 Background Attachment
 
-background-attachment propert controls how(/if) a background scrolls when the content scrolls. 
+background-attachment property controls how(/if) a background scrolls when the content scrolls. 
 can take the following values: 
 
 scroll: causes the elements background to scroll when the page is scrolled. if the element content is scrolled, the background does not move. In effect, background is fixed to the same position on the page, so it scrolls as the page scrolls. 

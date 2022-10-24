@@ -644,7 +644,853 @@
 
       -->
 
+Multimedia and Embedding
 
+from MDN: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding
+
+Images in HTML
+
+<!--
+In the beginning, the Web was just text, and it was quite boring. but soon we were able to embed images (and other types of content too). 
+
+How Do We Put an Image on a Webpage
+
+use the 
+
+<img> element
+
+this is a void element (cannot have any child content and CANNOT have an end tag)
+
+requires TWO attributes to be useful:
+
+src and alt
+
+src attribute contains a URL pointing to the image you want to embed in the page. just like href, the attr can point to a relative url or an absolute url. 
+w/out a src attr an img element has no image to load
+
+if your image is in the same directory as your HTML page, can embed like so:
+
+<img src="dinosaur.jpg" alt="Dinosaur" />
+
+if image is in a subdirectory:
+
+<img src="images/dinosaur.jpg" alt="Dinosaur" />
+
+and so on
+
+could use the absolute URL
+
+<img src="https://www.example.com/images/dinosaur.jpg" alt="Dinosaur" />
+
+but this is pointless as it just makes the browser do more work. 
+
+You'll almost always have the images for an HTML page in (or very close to) the same folder. 
+
+WARNING: Most images are copyrighted. Do NOT display an image on your webpage unless:
+
+-you own the image(s).
+-you have received explicit, written permission from the image owner.
+-you have ample proof that the image is, in fact, in the public domain. 
+
+Copyright violations are illegal and unethical. NEVER point your src attr at an image hosted on someone else's website that you don't have permission to link to. This is called "hotlinking". Again, stealing someone's bandwidth is illegal. It also slows down your page, leaving you with no control over whether the image is removed or replaced with something embarassing.
+
+NOTE: elements like <img> and <video> are sometimes referred to as <em>replaced elements</em>. This is b/c the element's content and size are defined by an external resource (like an image or video file), not by the contents of the element itself. 
+
+Alternative Text
+
+alt attribute
+it's value is supposed to be a textual description of the image, for use in situations where the image cannot be seen/displayed or takes a long time to render because of a slow internet connection. 
+
+for example:
+
+<img src="images/dinosaur.jpg" alt="The head and torso of a dinosaur skeletong; it has a large head with long sharp teeth" />
+
+easiest way to test alt text is to misspell filename so you can see what would display instead. 
+
+useful for the following reasons:
+
+-the user is visually impaired and is using a screen reader to read the web out to them. Quite useful to everyone actually
+-spelling of file or path name might be wrong.
+-browser doesn't support the image type. some people still use text-only browsers-which, you guessed it, displays the alt text of images.
+-provide text for search engines to utilize; e.g. search engines can match alt text with search queries.
+-users have turned off images to reduce data transfer volume and distractions. especially common on mobile phones, and in countries where bandwidth is limited or expensive.
+
+What should you write exactly?
+
+it depends on why the image is there at all. in other words,
+what you lose if your image doesn't show up.
+
+essentially the key is to deliver a usable experience, even when the images can't be seen. ensures all users are not missing any of the content. 
+
+Width and Height
+
+can use width and height attr to specify each property
+
+can find image's width and height in a number of ways.
+then use those sizes specifically
+
+<img src="images/dinosaur.jpg" alt="The head and torso of a dinosaur skeleton; it has a large head with long sharp teeth"
+width="400"
+height="341" />
+
+if image displays, wont' change much. but if image does NOT display right away, the browser will leave space for it. 
+
+setting size helps the browser load the page quiker and more smoothly
+
+however, don't alter size of images using HTML attributes. 
+Can cause issues with aspect ratio or resolution
+
+Image Titles
+
+as with links, you can add title attributes to images, to provide further supporting info if needed. 
+
+<img src="images/dinosaur.jpg" alt="The head and torso of a dinosaur skeleton; it has a large head with long sharp teeth"
+width="400"
+height="341"
+title="A T-Rex on display in the Manchester University Museum" />
+
+adding a title gives us a tooltip on mouse hover, just like link titles. 
+
+however, this is NOT recommended. Title has a number of accessibility problems, mainly based around the fact that screen reader support is very unpredictable and most browsers won't show it unless you hover with a mouse (so no access to keyboard users). 
+
+it's better to include such supporting info in the main article text, rather than attached to the image
+
+Annotating Images with Figures and Figure Captions
+
+there are a number of ways to add a caption with an image.
+
+could include a <p> directly below
+
+Problem with above is that there is nothing that semantically links the image to the caption. 
+
+A better solution, use the HTML <figure> and <figcaption> elements. These are created exactly for this purpose: to provide a semantic container for figures and to clearly link the figure to the caption. 
+
+<figure>
+  <img src="images/dinosaur.jpg"alt="The head and torso of a dinosaur skeleton; it has a large head with long sharp teeth"
+  width="400"
+  height="341" />
+
+  <figcaption>
+    A T-Rex on display in the Manchester University Museum.
+  </figcaption>
+</figure>
+
+<figcaption> element tells browsers (and assistive tech) that the caption describes the other content of the <figure> element.
+
+A figure doesn't have to be an image. It is an independent unit of content that:
+
+-expresses your meaning in a compact, easy-to-grasp way.
+-could go in several places in the page's linear flow.
+-provides essential info supporting the main text.
+
+A figure could be several images, a code snippet, audio, video, equations, a table, or something else. 
+
+CSS Background Images
+
+Can also use CSS to embed images into webpages (and JS, but that's another story entirely)
+
+p {
+  background-image: url("images/dinosaur.jpg");
+}
+
+arguably easier to position and control than HTML images. 
+
+So why bother with HTML?
+
+CSS background-images are for decoration only, something pretty to enhance the visuals. 
+
+These background images have NO semantic meaning whatsoever. They can't have any text equivalents and are invisible to screen readers. 
+
+If and image has MEANING, in terms of content, you should use an HTML image.
+If it is purely DECORATION, use a CSS background-image
+-->
+
+Video and Audio Content
+<!--
+
+Video and Audio on the Web
+
+first influx of online videos and audio were made poissble by proprietary plug-in based technologies like Flash and Silverlight. These had security and accessibility issues and are now obsolete in favor of native HTML solutions
+<video>
+and
+<audio> elements
+and the availability of JS APIs for controlling them. 
+
+NOTE: there are plenty of OVPs (online video providers) like YouTube, Dailymotion, and Vimeo, and online audio providers like Soundcloud. These companies offer easy way to host and consume this media, so you don't have to worry about enormous bandwidth consumption. 
+
+The <video> Element
+
+<video src="rabbit320.webm" controls>
+  <p>
+    your browser don't support HTML video. Here is a <a href="rabbit320.webm">link to the video</a> instead.
+  </p>
+</video>
+
+features of note:
+
+src
+  same as for the <img> element, the src (source) attr contains a path to the video 
+
+controls
+  users must be able to control video and audio playback (it's especially critical for people who have epilepsy). You must use either the controls attr to include the browser's own control interace, or build you own interface using the appropriate JS API. At a min the interface must include a way to start and stop the media, and to adjust the volume. 
+
+The paragraph inside the <video> tags
+  This is called <em>fallback content</em>-this will be displayd if the browser accessing the page doesn't support the <video> element, allowing us to provide a fallback for older browsers. Can you be anything you like; in this case, we've provided a direct link to the video file, so the user can at least access it some way regardless of waht browser they are using.
+
+Using Multiple Source Formats to Improve Compatibility
+
+problem w/above example. It is possible that the video might not play for you, b/c different browsers support diff video (and audio) formats. There are things to prevent this issue
+
+Contents of a Media File
+
+container formats
+  MP3, MP4, WebM are called container formats. Define structure in which the audio and/or video tracks that make up the media are stored, along iwth metadata describing the media, what codecs are used to encode its channels, and so forth
+
+Let's break down a WebM file
+contains a 
+Movie-
+has a main video track and an alternate angle track
+plus audio for English and Spanish,
+in addition to audo for an English commentary track. 
+also include, text tracks for closed captions
+
+audio and video tracks within the container hold data in appropriate format for the codec used to encode that media. 
+different formats for audio and video tracks
+audio tracks encoded using an audio codec
+video tracks encoded using a video codec
+
+different browsers support different video and audio formats, and different container formats (like MP3, MP4, and WebM, which in turn can contain different types of video and audio).
+e.g.:
+
+-A WebM container typically packages Vorbis or Opus audio with VB9/VP9 video. Supported in all modern browsers, though older versions may not work. 
+-An MP4 container often packages AAC or MP3 audio with H.624 video. 
+-Ogg container tends to use Vorbis audio and Theora video. Best support in FF and Chrome, but basically superseded by the better quality WebM format.
+
+some special cases:
+e.g.
+FLAC codec-simplified container, most commonly stored in FLAC files, which are just raw FLAC tracks
+
+another example is MP3:
+actually and MPEG-1 Audio Layer III (MP3) audio track stored within an MPEG or MPEG-2 container. 
+
+an audio player will tend to play an audio track directly, e.g. an MP3 or Ogg file. These don't need containers
+
+Codecs described above exist to compress video and audio into manageable files, since raw audio and video are both exceedingly large. 
+each browser supports an assortment of codecs, like Vorbis or H.624, which are used to convert the compressed audio and video into binary data and back. 
+each codec has advantages and disadvantages
+and each container has positive and negative aspects
+
+things are even more complicated b/c while each browser supports different sets of container file formats, they also each support a different selection of codecs. 
+In order to maximize the likelihood that your site or app will work on user's browser, you may need to provide each media file you use in multiple formats. If your site and the user's browser don't share a media format in common, your media WON'T play. 
+
+Choosing the best combo of codecs and containers can be a complicated task. Look to the web for help. 
+
+one more thing: mobile browsers may support additional formats not supported by their desktop equivalents, just like they may not support all the same formats the desktop does. 
+
+So how do we do this?
+
+<video controls>
+  <source src="rabbit320.mp4" type="video/mp4" />
+  <source src="rabbit320.webm" type="video/webm" />
+  <p>
+    Your browser doesn't support this video. Here is a <a href="rabbit320.mp4">link to the video</a> instead.
+  </p>
+</video>
+
+here we've taken the src attr out of the actual <video> tag and instead included separate <source> elements that point to their own sources. In this case the browser will go through the <source> elements and play the first one that it has the codec to support. Including WebM and MP4 sources should be enough to play your video on most platforms and browsers these days. 
+
+Each <source> element also has a type attr. this IS optional, but is advised to include it. 
+
+type attr contains the MIME type of the file specified by the <source>, and browsers can use the type to immediately skip videos they don't understand. if type ISN'T included, browsers will load and try to play each file until they find one that works, which obv takes time and unnecessary resources
+
+Other <video> Features
+
+number of other features you can include when displaying an HTML video:
+
+<video
+  controls
+  width="400"
+  height="400"
+  autoplay
+  loop
+  muted
+  preload="auto"
+  poster="poster.png">
+  <source src="rabbit320.mp4" type="video/mp4" />
+  <source src="rabbi320.webm" type="video/webm" />
+  <p>
+    Your browser doesn't support this video. Here is a <a href="rabbit320.mp4">link to the video</a> instead.
+  </p>
+</video>
+
+width and height
+  can control size with these or with CSS. in both cases  video will respect it's aspect ratio and fill space with letterbox as necessary
+
+autoplay
+  will autoplay media while rest of page loads. 
+  DO NOT advise. It is ANNOYING to users
+
+loop
+  causes to media to play on a loop. Also ANNOYING, so only if really necessary
+
+muted
+  media has sound turned off by default
+
+poster
+  URL of an image which will be displayed before video is played. intended to be used for a splash screen or advertising screen
+
+preload
+  used for buffering large files; can take one of three values:
+  -"none" does not buffer the file
+  -"auto" buffers the media file
+  -"metadata" buffers only the metadata for the file
+
+The <audio> Element
+
+<audio> works just like <video> with a few small differences:
+
+<audio controls>
+  <source src="viper.mp3" type="audio/mp3" />
+  <source src="viper.ogg" type="audio/ogg" />
+  <p>
+    Your browser doesn't support this audio file. Here is a <a href="viper.mp3">link to the audio</a> instead.
+  </p>
+</audio>
+
+takes up less space than video player, as there is no visual component, you just need to display controls to play it. other differences from HTML video are as follows:
+
+-<audio> element does NOT support width/height attr-no visual component so there is nothing to assign a width or height to.
+-does NOT support poster attr-again, no visual component
+
+Other than this, <audio> supports all the same features as <video>
+
+Displaying Video Text Tracks
+
+Many people can't or don't want to hear the audio/video content they find on the Web, at least at certain times. For example:
+
+-many people have auditory impairments (hard of hearing or deaf)
+-may not be able to hear b/c they are in noisy environments (crowded public space, etc)
+-in environments where having audio playing would be a distraction or disruption (in a library or when a partner is trying to sleep), having captions can be very useful
+-people who don't speak the language of the video might want a text transcript or even translation to help them understand
+
+thanks to HTML video, you can provide a transcript of words being spoken in the audio/video
+
+to do so we use the WebVTT file format and the <track> element
+
+WebVTT is a format text files containing multiple strings of text along with metadata such as the time in the video at which each text string should be displayed, and even limited styling/positioning info. 
+These text strings are called CUES and there are several kinds of cues used for different purposes. most common are:
+
+-subtitles
+  translations fo foreing material, for people who don't understand the words spoken in the audio.
+
+-captions
+  synchronized transcriptions of dialog or descriptions of significant sounds, to let people who can't hear the audio understand what is going on
+
+-timed descriptions
+  text which should be spoken by the media player in order to describe important visuals to blind or otherwise visually impaired users
+  
+typical WebVTT file will look something like:
+-->
+WEBVTT
+
+1
+00:00:22.230 --> 00:00:24.606
+This is the first subtitle.
+
+2
+00:00:30.739 --> 00:00:34.074
+This is the second.
+
+…
+<!--
+To get this displayed along with the HTML media playback you need to:
+
+1. save it as a .vtt file in a sensible place
+2. link to the .vtt file with <track> element. <track> should be placed within <audio> or <video>, but after all <source> elements. 
+use the kind attr to specify whether the cues are 
+subtitles
+captions
+descriptions
+
+Further, use srclang to tell the browser what language you have written the subtitles in. 
+Finally, add label to help readers indentify the language they are searching for
+
+Here's an example:
+
+<video controls>
+  <source src="example.mp4" type="video/mp4" />
+  <source src="example.webm" type="video/webm" />
+  <track kind="subtitles" src="subtitles_es.vtt" srclang="es" label="Spanish" />
+</video>
+-->
+
+From Object to iframe - Other Embedding technologies
+<!--
+let's lok at other elements that allow us to embed a wide variety of content types
+
+<iframe> - for embedding other web pages
+<embed> - embed external resources like PDF files, etc.
+<object> - embed external resources like PDF files, etc.
+
+A Short History of Embedding
+
+First, we had FRAMES- small parts of a website stored in individual HTML pages. These were embedded in a master document called a FRAMESET, which allowed you to specify the area on the screen that each frame filled, rather like sizing the columns and rows of a table.
+considered the height of coolness in the mid to late 90's, and there was evidence that having a webpage split up into smaller chunks helped with download speed. 
+had many problems however, and as network speeds got faster, the negatives outweighed the positives
+
+then (late 90's, early 2000's), we had PLUGIN technologies like Java Applets and Flash-allowed web devs to embed rich content into webpages such as videos and animations, not available in HTML alone. Embedding these was achieved through elements like
+<object> and the lesser used <embed>
+have since fallen out of a fashion due to many problems, including accessibility, security, file size, and more. Most major browsers have now stopped supporting plugins such as Flash.
+
+Finally, the <iframe> element appeared (along with other means of embedding content, such as <canvas>, <video>, etc.). This provides a way to embed an entire web document inside another one, as if it were an <img> or other such element. 
+
+iframes in Detail
+
+<iframe> elements are designed to allow you to embed other web docs into the current doc. Great for incorporating third-party content into your website that you might not have direct control over and don't want to have to implement your own version of and don't want to implement your own version of:
+-video from online video providers
+-commenting systems like Disqus
+-maps from online map providers
+-advertising banners, etc
+
+There are some security concerns to be aware of, but it doesn't mean you can't use them. 
+
+Let's explore in more detail:
+
+<head>
+  <style>
+    iframe {
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe src="https://developer.mozilla.org/en-US/docs/Glossary"
+  width="100%"
+  height="500"
+  allowfullscreen
+  sandbox>
+  <p>
+    <a href="/en-US/docs/Glossary">
+      Fallback link for browsers that don't support iframes
+    </a>
+  </p>
+</iframe>
+</body>
+
+example includes the basic essentials needed to use an <iframe>:
+
+border: none
+if used, the <iframe> is displayed without a surrounding border. otherwise, by default, browsers display the <iframe> with a surrounding border (which is generally undesirable).
+
+allowfullscreen
+if set, the <iframe> is able to be placed in fullscreen mode using the Fullscreen API (somewhat beyond the scope of this lesson).
+
+src
+as with <video>/<img>, contains a path pointing to the URL of the doc to be embedded.
+
+width and height
+...duh
+
+Fallback content
+similar to other elements like <video>, you can include fallback content to appear b/w the opening and closing <iframe></iframe> tags that will appear if the browser doesn't support the <iframe>. In this case, we have included a link to the page instead. it is unlikely that you'll come across any browser that doesn't support <iframe>s these days
+
+sandbox
+this attr, which works in slightly more modern browsers than the rest of the <iframe> features requests heightened security settings: see below.
+
+NOTE: in order to improve speed, it's a good idea to set the iframe's src attr with JS after the main content is done with loading. Makes page usable sooner and decreases your official page load time.
+
+Security Concerns
+
+iframes are a common target (offical term: attack vector) for bad people on the Web (hackers, more accurately, crackers) to attack if they are trying to maliciously modify your webpage, or trick people into doing something they don't want to do, such as reveal sensitive info like u/n and p/w (phishing). 
+Because of this there are some security mechanisms and best practices to consider:
+
+Only Embed When Necessary
+
+only embded third-party content when completely necessary. good rule for web security is
+"You can never be too cautious. If you made it, double-check it anyway. If someone else made it, assume it's dangerous until proven otherwise".
+
+Besides security, you should also be aware of intellectual property issues. Most content is copyrighted, offline and online, even content you might not expect (for example, most images on Wikimedia Commons). 
+DO NOT display something unless you own it or have explicit written permission. 
+
+You can never be too cautious
+
+If content is licensed, you MUST obey the license terms. 
+
+Use HTTPS
+
+HTTPS is the encrypted version of HTTP. You should serve your websites using HTTPS whenever possible
+
+1. HTTPS reduces the chance that remote content has been tampered with in transit,
+2. HTTPS prevents embedded content from accessing content in your parent doc and vice versa.
+
+HTTPS-enabling your site requires a special security cert to be installed. 
+
+many hosting providers offer HTTPS-enabled hosting as a default. 
+
+If you DO need to set it up, https://letsencrypt.org
+provides tools and instructions
+
+NOTE: Github pages allow content to be served via HTTPS by default, so it's useful for hosting content. 
+
+Always Use the Sandbox Attr
+
+a container for code where it can be used appropriately - or for testing - but can't cause any harm to the rest of the codebase (either accidental or malicious) is called a sandbox. 
+
+give embedded content only the permissions needed for doing its job. 
+
+unsandboxed content can do way too much (executing JS, submitting forms, popup windows, etc). By default, you should impose all available restrictions by using the sandbox attr with no parameters. 
+
+if absolutely required, you can add permissions back one by one (inside the sandbox="" attr value)-see the sandbox reference entry for all the available options. 
+
+NEVER add both allow-scripts and allow-same-origin to your sandbox attr. The embedded content could bypass the Same-origin policy that stops sites from executing scripts, and use JS to turn off sandboxing altogether.
+
+Configure CSP Directives
+
+CSP = content security policy and provides a set of HTTP Headers (metadata sent alogn with your web pages when they are served from a web server) designed to improve the security of your HTML document. 
+
+in regard to <iframe>, you can configure your server to send an appropriate X-Frame-Options header. This can prevent other websites from embedding your content in their web pages (which would enable clickjacking). 
+
+The <embed> and <object> Elements
+
+<embed> and <object> elements serve a different function to <iframe> - these elements are general purpose embedding tools for embedding external content, such as PDFs.
+
+You are unlikely to use these elements very much. 
+
+If you need to display PDFs, it's usually better to link to them, rather than embedding them in the page. 
+
+if you need to use these, you'll need this info at minimum:
+
+<embed
+  src
+  type
+  height
+  width
+  etc>
+
+<object
+  data
+  type
+  height
+  width
+  single-tag <param> elements contained within <object>
+  >
+
+let's look at an object example that embeds a PDF into a page 
+
+<object data="mypdf.pdf" type="application/pdf" width="800" height="1200">
+  <p>
+    You don't have a PDF plugin, but you can <a href="mypdf.pdf">download the PDF file.</a>
+  </p>
+</object>
+
+PDFs were a necessary stepping stone between paper and digital, but they pose many accessibility challenges and can be hard to read on small screens. 
+Better to link them
+-->
+
+Adding Vector Graphics to the Web
+<!--
+vector graphics are very useful-have small file sizes and are highly scalable (the don't pixelate when zoomed in or blown up to a large size). 
+
+What are Vector Graphics?
+
+on the web you'll work with two types of images:
+
+-Raster Images-defined used a grid of pixels--a raster image file contains info showing exactly where each pixel is to be placed and exactly what color it should be. 
+Popular web raster formats include
+-bitmap(.bmp)
+-PNG(.png)
+-JPEG(.jpg)
+-GIF(.gif)
+
+Vector Images-defined using algorithms--vector image file contains shape and path definitions that comp uses to work out what the image should look like when rendered on teh screen. 
+-SVG format
+
+Vector image files are much lighter than their raster equivalents, because they only need to hold a handful of algorithms, rather than information on every pixel in the image individually
+
+What is SVG?
+
+SVG is an XML-based laguage for describing vector images--basically markup, like HTML, except that you've got many different elements for defining the shapes you want to appear in your image, and the effects you want to apply to those shapes. 
+SVG is for marking up graphics, not content. 
+on the simple side, you've got elements for creating simple shapes like <circle> <rect>. More advanced SVG features include <feColorMatrix> (transform colors using a transformation matrix), <animate> (animate parts of your vector graphic) and <mask> (apply a mask over the top of your image). 
+
+the following code creates a circle and a rectangle:
+
+<svg
+  version="1.1"
+  baseProfile="full"
+  width="300"
+  height="200"
+  xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="black" />
+  <circle cx="150" cy="100" r="90" fill="blue" />
+</svg>
+
+yes you can handcode simple SVG in a text editor, but it gets complicated fast. 
+Most people use a vector graphics editor like Inkscape or Illustrator
+
+SVG has further advantages:
+
+-text in vector images remains accessible (which also benefits your SEO).
+-SVGs lend themselves well to styling/scripting, b/c each component of the image is an element that can be styled via CSS or scripted via JS.
+
+disadvantages:
+-SVG gets complicated very quickly, file sizes can grow; complex SVGs can take significant processing time in the browser
+-SVG van be harder to create than raster images, depending on the image you're trying to create
+-SVG is not supported in older browsers
+
+Raster graphics are arguably better for complex precision images such as photos, for reasons above
+
+Adding SVG to your Pages
+
+The Quick Way: <img> Element
+
+to embed via <img> element, just reference with src attr as you'd expect. You WILL need a height or a width attr (or both if your SVG has no inherent aspect ratio). 
+
+<img
+  src="equilateral.svg"
+  alt="triangle with all three sides equal"
+  height="87"
+  width="100" />
+
+Pros
+
+-quick, familiar image syntax w/built-in text equivalent (alt attr)
+-make the image into a hyperlink easily by nesting <img> inside an <a>
+-SVG file can be cached by the browser=faster loading times for any page that uses the image loaded in the future
+
+Cons
+
+-cannot manipulate with JS
+-if you want to use CSS, you must include INLINE CSS styles in your SVG code (external stylesheets invoked take no effect).
+-Cannot restyle image with CSS pseudoclasses (like :focus).
+
+Troubleshooting and Cross-Browser Support
+
+for browsers that don't support SVG (IE 8 and below, Android 2.3 and below), you could reference a PNG or JPG from your src attr and use a srcset attr to reference the SVG. older browsers will load the PNG in place of the SVG
+
+<img 
+  src="equilateral.png"
+  alt="triangle with equal sides"
+  srcset="equilateral.svg" />
+
+*
+srcset-one or more strings separated by commas, indicating possible image sources for the user agent to use. Each string is composed of:
+
+1. A URL to an image
+
+2. Optionally, whitespace followed by one of:
+  -a width descriptor (positive integer directly followed by w). width descriptor is divided by the source size given in the sizes attr to calculate the effective pixel density. 
+  -a pixel density descriptor (a positive floating point number directly followed by x).
+
+the user agent selects any of the available sources at its discretion. Provides them with significant leeway to tailer their selection based on things like user preferences or bandwidth conditions. 
+*
+
+Can also use SVGs as CSS background images. in the following code, older browsers will stick with the png that they understand, while newer browsers will load the SVG:
+
+background: url("fallback.png") no-repeat center;
+background-image: url("image.svg");
+background-size: contain;
+
+like the <img> method described above, inserting SVGs using CSS background images means the SVG can't be manipulated with JS, and is also subject to same CSS limitations
+
+How to Include SVG Code Inside Your HTML
+
+SVG Inline or inlining SVG-open up the SVG file in a text editor, copy the SVG code, and paste it into your HTML document.
+Make sure your SVG code snippet begins with an <svg> start tag and ends with an </svg> end tag. Here's an example:
+
+<svg width="200" height="200">
+  <rect width="100%" height="100%" fill="green" />
+</svg>
+
+Pros
+-SVG inline saves an HTTP request, and can reduce loading time
+-can assign classes and ids to SVG elements and style them with CSS, either within SVG or whever you put the CSS style rules for your HTML document. In fact, you can use any SVG presentation attr as a CSS property
+-Inling SVG is the only approach that lets you use CSS interactions (like :focus) and CSS animations on your SVG image (even in your regular stylesheet).
+-can make SVG markup into a hyperlink by wrapping in <a> element
+
+Cons
+-method is only suitable if using the SVG in only one place. Duplication makes for resource-intensive maintenance
+-Extra SVG code increases the size of your HTML file
+-browser cannot cache inline SVG as it would cache regular image assets, so pages that include image will not load faster after the first page containing the image is loaded
+-may include fallback in a <foreignObject> element, but browsers that support SVG still download any fallback images. need to weight whether the extra overhead is really worthwhile, just to support obsolescent browsers.
+
+How to Embed an SVG With an Iframe
+
+SVG images can be opened in the browser just like webpages. So embedding an SVG doc with <iframe> is done just like in "From <object> to <iframe>-other embedding technologies"
+
+quick review:
+
+<iframe src="triangle.svg" width="500" height="500" sandbox>
+  <img src="triangle.png" alt="Triangle with three unequal sides" />
+</iframe>
+
+definitely not the best method to choose
+
+Cons
+-iframes do have a fallback mechanism, but browsers only display the fallback if they lack support for iframes altogether
+-unless the SVg and your current webpage have the same origin, you cannot us JS on your main webpage to manipulate the SVG
+-->
+
+Responsive Images
+<!--
+responsive images-images that work well on devices with widely differing screen sizes, resolutions, and other such features.
+Helps to improve performance across different devices
+Responsive images are just one part of responsive design, an important CSS topic. 
+
+Why Responsive Images?
+
+a typical scenario: a typical website may contain a header image and some content images below the header. The header image will likely span the whole width of the header, and the content image will fit somewhere inside the content column
+
+Works well on a wide screen device, like a laptop or desktop
+
+however, issues arise when viewed on a narrow screen.
+
+Header looks ok, but starting to take up a lot of the screen height for mobile devices and it's difficult to see any detail in the subjects of the content image
+
+an improvement would be to display a cropped version of the image which displays the important details when the site is viewed on a narrow screen. 
+
+the general problem whereby you want to serve different cropped images in that way, for various layouts, is commonly known as the Art Direction Problem
+
+In addition, no need to embed large images on page if it is being viewed on a mobile sreen.
+conversely, a small raster image starts to look grainy when displayed larger than its original size. called Resolution Switching Problem. 
+
+Conversely (again lol), unnecesary to display a large image on a screen significantly smaller than the size it was meant for. Doing so can waste bandwidth; in particular, mobile users don't want to waste bandwidth by downloading a large image intended for desktop users, when a small image would do for their device. ideally, multiple resolutions would e made available to user's browser. 
+
+to make it more complicated, some devices have high resolution screens that need larger images thhan you might expect. basically the same problem. 
+
+Vector graphics are ideal-small in file size and scale well
+BUT they aren't useful for everything. 
+good for:
+simple graphics, patters, interface elements, etc. but not good for 
+heavy detail like photos
+
+Responsive Image Technologies were implemented recently to solve the problems of different screen sizes (didn't exist in the beginning!)
+allow you to:
+offer the browser several image files, either all showing the same thing but containing different numbers of pixels-Resolution Switching
+or different images suitable for different space allocation-Art Direction
+
+How Do You Create Responsive Images?
+
+Resolution Switching: Different Sizes
+
+we want to display identical image content, just larger or smaller depending on the device
+standard <img> element traditionally lets you point the browser to a single source file:
+
+<img src="elva-fairy-800w.jpg" alt="Elva dresses as a fair" />
+
+We can however use two attr-srcset and sizes-to provide several additional source images along with hints to help the browser pick the right one. 
+
+<img
+  srcset="elva-fair-480w.jpg 480w, elva-fairy-800w.jpg 800w"
+  sizes="(max-width: 600px) 480px,
+        800px"
+  src="elva-fairy-800w.jpg"
+  alt="Elva dressed as a fairy" />
+
+srcset and sizes attr are easier to understand if you format them with a different part of the attr on each line
+  each value contains a comma-separated list, and each part of those lists is made up of three sub-parts.
+
+srcset-defines the set of images we will allow the browser to choose between, and what size each image is. each set of image info is separated from the previous one by a comma. For each one, we write:
+
+1. an image filename (elva-fairy-480w.jpg)
+2. a spae
+3. The image's intrinsic width in pixels (480w)-note this uses w unit, not px as you might expect. An image's intrinsic size is it's real size.
+
+sizes-defines a set of media conditions (e.g. screen widths) and indicates what image size would be best to choose, when certain media conditions are true. In this case, before each comma we write:
+
+1. a media condition ((max-width:600px))-describes a possible state the screen can be in. Here we are saying "when the viewport width is 600px or less".
+2. a space
+3. the width of the slot the image will fill when the media condition is true (480px)
+(for slot width-can provide a relative width (for example, 50vw), but NOT a percentage.)
+
+with these attr in place, browser will:
+
+1. look at its device width
+2. work out which media condition in the sizes list is the first one to be true
+3. look at slot size given to the media query
+4. load the image referenced in the srcset list that has the same size as the slot or, if there isn't one, the first image that is bigger than the chosen slot size.
+
+Voila! a supporting browser with a viewport width of 480px loads the page, the (max-width: 600px) media condition will be true, and so the browser chooses the 480px slot. 
+
+NOTE: when testing with desktop browser, if the browser fails to load the narrower images when you have the window set to it's narrowest width, have a look at what the viewport is (you can approximate it by going into the browser's JS console and typing in
+document.querySelector('html').clientWidth).
+Different browsers have min sizes that they'll let you reduce the window width to, and they might be wider than you think. 
+
+NOTE: in the <head> of the example above, you'd see the line
+  <meta name="viewport" content="width=device-width">
+forces mobile browsers to adopt their real viewport width for loading web pages (some mobile browsers lie about their vw width, and instead load pages at a larger vw then shrink the loaded page down, not very helpful for responsive images or design).
+
+Resolution Switching: Same Size, Different Resolutions
+
+if supporting multiple display resolutions, but everyone sees your image at the same real-world size on the screen, you can allow the browser to choose an appropriate resolution image by using srcset with x-descriptors and without sizes-an easier syntax! 
+
+<img
+  srcset="elva-fair-320w.jpg, elva-fairy-480w.jpg 1.5x, elva-fairy-640w.jpg 2x"
+  src="elva-fairy-640w.jpg"
+  alt="Elva dressed as a fairy" />
+
+in above example following CSS is applied to image
+
+img {
+  width: 320px;
+}
+
+Here, sizes is not needed-browser works out what resolution the display is that it is being shown on, and serves the most appropriate image referenced in the srcset. 
+if the device has a standard/low res display, with one device pixel representing 1 CSS pixel, the elva-fairy-320w.jpg will be loaded (the 1x is implied so you don't have to specify it). 
+if device has high res of two device px per CSS px or more, the elva-fairy-640w.jpg image will be loaded
+
+Art Direction
+
+recap: art direction problem involves wanting to change the image displayed to suit different image display sizes.
+
+example: on a large display, shows a landscape shot with a person in the middle. BUT, on a mobile display image is shrunk down and hard to see.
+Would be better to show a smaller, portrait image on mobile
+
+<picture> element allows us to implement this solution.
+
+<img src="elva-800w.jpg" alt="Chris standing up holding his daughter Elva" />
+(https://mdn.github.io/learning-area/html/multimedia-and-embedding/responsive-images/not-responsive.html)
+
+can fix with <picture>!
+like <video> and <audio>, the <picture> element is a wrapper containing several <source> elements that provide different sources for the browser to choose from, followed by the all-important <img> element. 
+
+a responsive version looks like this:
+
+<picture>
+  <source media="(max-width: 799px)" srcset="elva-480w-close-portrait.jpg" />
+  <source media="(min-width: 800px)" srcset="elva-800w.jpg" />
+  <img src="elva-800w.jpg" alt="Chris standing up holding his daughter Elva" />
+</picture>
+
+-<source> elements include a media attr that contains a media condition-as w/1st srcset ex. these conditions are tests that decide which image is shown-the FIRST one that returns true will be displayed.
+-srcset attrs contain the path to the image to display. 
+-in all cases, you must provide an <img> element, with src and alt, right before </picture>, otherwise no images will appear. provides a default case that will apply when none of the media conditions return true 
+
+NOTE: should use media attr only in art direction scenarios, when you do use media, don't also offer media conditions within the sizes attr.
+
+Why Can't We Just Do This Using CSS or JS?
+
+when browser starts to load a page, it starts to download (preload) any images before the main parser has start to load and interpret CSS and JS. example: couldn't load the <img> element, THEN detect the viewport width with JS, then dynamically change the source of image. By then, original image would have already been loaded, and you would load the small image as well-even worse in responsive image terms
+
+Using Modern Image Formats Boldly
+
+new image formats like WebP and AVIF can maintain low file size and high quality at the same time. 
+
+<picture> lets us continue catering to older browsers. can supply MIME types inside type attr so browser can immediately reject unsupported file types:
+
+<picture>
+  <source type="image/svg+xml" srcset="pyramid.svg" />
+  <source type="image/webp" srcset="pyramid.webp" />
+  <img
+    src="pyramid.png"
+    alt="regular pyramid built from four equilateral triangles" /
+</picture>
+
+-Do NOT use media attr, unless you also need art direction.
+-in a <source> element, you can only refer to images of the type declared in type.
+-use comma-separated lists with srcset and sizes, as needed. 
+
+-->
 
 
 HTML Tables
@@ -1011,7 +1857,7 @@ these are used for headings that sit over the top of multiple columns or rows.
 
 The id and headers Attributes
 
-alternative to using the scope attribute is to use id and headers attributes to create associations b/w beaders and cells. used as follows:
+alternative to using the scope attribute is to use id and headers attributes to create associations b/w headers and cells. used as follows:
 
 1. add a unique id to each <th> element
 2. add headers attribute to each <td> element. each headers attribute has to contain a list of the ids of all the <th> elements that act as a header for that cell, separated by spaces. 
@@ -1041,42 +1887,12 @@ could be written like this:
 </tbody>
 
 NOTE: this method creates very precise associations between headers and data cells but it uses A LOT more markup and does not leave any room for errors. The scope approach is usually enough for most tables. 
-
-
-
-
-
 -->
 
+HTML Validator
 
+HTML code should be run through an HTML Checker
 
+have used this one so far:
 
--->
-
-
--->
-  
-      
-
-
-
-
-    
-
-      
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    -->
+https://validator.w3.org/nu/
